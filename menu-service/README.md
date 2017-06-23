@@ -93,7 +93,7 @@
     
 * Search restaurant by current location with optional customized pagination and distance
     * GET URL: ```/near```
-    * Sample: ```/near?lat=38&lng=-77&page=0&size=10&distance=1```
+    * Sample: ```/near?lat=38.9093216&lng=-76.0036435&page=0&size=10&distance=10```
     
 * Search menu within a range :
     * GET URL: ```/{restaurantName}/menu```
