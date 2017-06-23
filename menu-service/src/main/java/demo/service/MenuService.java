@@ -1,22 +1,21 @@
 package demo.service;
 
 import demo.domain.MenuItem;
+import demo.domain.Request;
 import demo.domain.Restaurant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Point;
 
-import java.util.List;
-
 public interface MenuService {
 
-    void deleteAll();
+    boolean deleteAll(Request request);
 
     Page<MenuItem> findByItemPriceBetween(double low, double high, Pageable pageable);
 
-    void addRestaurants (List<Restaurant> restaurants);
+    boolean addRestaurants (Request request);
 
-    void addMenuItem(String restaurantName, List<MenuItem> menu);
+    boolean addMenuItem(String restaurantName, Request request);
 
     Page<Restaurant> findRestaurantWithIn(String page, String size, String distance, Point point);
 

@@ -1,15 +1,14 @@
 package demo.rest;
 
-import demo.domain.MenuItem;
+import demo.domain.Request;
 import demo.domain.Restaurant;
 import demo.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class MenuServiceRestController {
@@ -25,20 +24,21 @@ public class MenuServiceRestController {
     }
 
     @RequestMapping(value = "/menu/upload", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void uploadRestaurant(@RequestBody List<Restaurant> restaurants) {
-        this.menuService.addRestaurants(restaurants);
+    public ResponseEntity uploadRestaurant(@RequestBody Request request) {
+        if (this.menuService.addRestaurants(request)) return new ResponseEntity(HttpStatus.CREATED);
+        else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "/menu/addItems", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addMenuItemsWithRestaurantName(@RequestBody List<MenuItem> menuItems, @RequestParam(name = "name") String restaurantName) {
-        this.menuService.addMenuItem(restaurantName, menuItems);
+    public ResponseEntity addMenuItemsWithRestaurantName(@RequestBody Request request, @RequestParam(name = "name") String restaurantName) {
+        if (this.menuService.addMenuItem(restaurantName, request)) return new ResponseEntity(HttpStatus.CREATED);
+        else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "/menu/purge", method = RequestMethod.DELETE)
-    public void deleteAll() {
-        this.menuService.deleteAll();
+    public ResponseEntity deleteAll(@RequestBody Request request) {
+        if (this.menuService.deleteAll(request)) return new ResponseEntity(HttpStatus.OK);
+        else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "/menu/near", method = RequestMethod.GET)

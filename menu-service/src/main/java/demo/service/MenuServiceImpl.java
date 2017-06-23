@@ -1,6 +1,7 @@
 package demo.service;
 
 import demo.domain.MenuItem;
+import demo.domain.Request;
 import demo.domain.Restaurant;
 import demo.domain.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void deleteAll() {
-        this.restaurantRepository.deleteAll();
+    public boolean deleteAll(Request request) {
+        if (request.isAdmin()) {
+            this.restaurantRepository.deleteAll();
+            return true;
+        } else return false;
     }
 
     @Override
@@ -32,15 +36,22 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void addRestaurants(List<Restaurant> restaurants) {
-        this.restaurantRepository.save(restaurants);
+    public boolean addRestaurants(Request request) {
+        if (request.isAdmin()) {
+            this.restaurantRepository.save(request.getRestaurants());
+            return true;
+        } else return false;
     }
 
     @Override
-    public void addMenuItem(String restaurantName, List<MenuItem> menu) {
-        Restaurant restaurant = restaurantRepository.findByRestaurantName(restaurantName);
-        restaurant.getMenu().addAll(menu);
-        restaurantRepository.save(restaurant);
+    public boolean addMenuItem(String restaurantName, Request request) {
+        if (request.isAdmin()) {
+            List<MenuItem> menu = request.getItems();
+            Restaurant restaurant = restaurantRepository.findByRestaurantName(restaurantName);
+            restaurant.getMenu().addAll(menu);
+            restaurantRepository.save(restaurant);
+            return true;
+        } else return false;
     }
 
     @Override
