@@ -1,4 +1,4 @@
-# OnlineOrderApplication
+# Menu Service
 
 ## Feature Supported
 #### 1. Rest APIs
