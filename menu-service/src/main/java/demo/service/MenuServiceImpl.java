@@ -1,40 +1,24 @@
 package demo.service;
 
 import demo.domain.MenuItem;
-import demo.domain.MenuItemRepository;
 import demo.domain.Restaurant;
 import demo.domain.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class MenuServiceImpl implements MenuService {
-    private MenuItemRepository menuItemRepository;
     private RestaurantRepository restaurantRepository;
 
     @Autowired
-    public MenuServiceImpl (MenuItemRepository menuItemRepository, RestaurantRepository restaurantRepository) {
-        this.menuItemRepository = menuItemRepository;
+    public MenuServiceImpl (RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
-    }
-
-    @Override
-    public void deleteByItemName(String itemName) {
-        menuItemRepository.deleteByItemName(itemName);
-    }
-
-    @Override
-    public MenuItem findByItemName(String itemName) {
-        return menuItemRepository.findByItemName(itemName);
-    }
-
-    @Override
-    public Page<MenuItem> findByItemType(String itemType, Pageable pageable) {
-        return null;
     }
 
     @Override
@@ -51,12 +35,18 @@ public class MenuServiceImpl implements MenuService {
     public void addMenuItem(String restaurantName, List<MenuItem> menu) {
         Restaurant restaurant = restaurantRepository.findByRestaurantName(restaurantName);
         restaurant.getMenu().addAll(menu);
-        restaurantRepository.saveAndFlush(restaurant);
+        restaurantRepository.save(restaurant);
     }
 
     @Override
-    public Page<Restaurant> findAll(Integer page, Integer size) {
-        Pageable pageable = new PageRequest(page, size);
-        return this.restaurantRepository.findAll(pageable);
+    public Page<Restaurant> findRestaurantWithIn(String page, String size, String distance, Point point) {
+        Pageable pageable = new PageRequest(Integer.parseInt(page), Integer.parseInt(size));
+        Circle c = new Circle(point.getX(), point.getY(), Double.parseDouble(distance));
+        return this.restaurantRepository.findByLocationWithin(c, pageable);
+    }
+
+    @Override
+    public Restaurant findByRestaurantName(String restaurantName) {
+        return this.restaurantRepository.findByRestaurantName(restaurantName);
     }
 }
