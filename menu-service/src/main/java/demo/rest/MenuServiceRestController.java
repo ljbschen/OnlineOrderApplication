@@ -32,17 +32,22 @@ public class MenuServiceRestController {
 
     @RequestMapping(value = "/menu/addItems", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addMenuItemsWithRestaurantName(@RequestBody List<MenuItem> menuItems, @RequestParam(name = "restaurantName") String restaurantName) {
+    public void addMenuItemsWithRestaurantName(@RequestBody List<MenuItem> menuItems, @RequestParam(name = "name") String restaurantName) {
         this.menuService.addMenuItem(restaurantName, menuItems);
     }
 
-    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    @RequestMapping(value = "/menu/purge", method = RequestMethod.DELETE)
+    public void deleteAll() {
+        this.menuService.deleteAll();
+    }
+
+    @RequestMapping(value = "/menu/near", method = RequestMethod.GET)
     public Page<Restaurant> findRestaurantWithIn(
+            @RequestParam(name = "lat") String lat,
+            @RequestParam(name = "lng") String lng,
             @RequestParam(name = "page", defaultValue = DEFAULT_PAGE) String page,
             @RequestParam(name = "size", defaultValue = DEFAULT_SIZE) String size,
-            @RequestParam(name = "distance", defaultValue = DEFAULT_DISTANCE) String distance,
-            @RequestParam(name = "lat") String lat,
-            @RequestParam(name = "lng") String lng) {
+            @RequestParam(name = "distance", defaultValue = DEFAULT_DISTANCE) String distance) {
         return this.menuService.findRestaurantWithIn(page, size, distance, new Point(Double.parseDouble(lng), Double.parseDouble(lat)));
     }
 

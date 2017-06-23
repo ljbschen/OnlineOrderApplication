@@ -22,6 +22,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public void deleteAll() {
+        this.restaurantRepository.deleteAll();
+    }
+
+    @Override
     public Page<MenuItem> findByItemPriceBetween(double low, double high, Pageable pageable) {
         return null;
     }

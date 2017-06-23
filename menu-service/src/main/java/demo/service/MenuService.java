@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface MenuService {
 
+    void deleteAll();
+
     Page<MenuItem> findByItemPriceBetween(double low, double high, Pageable pageable);
 
     void addRestaurants (List<Restaurant> restaurants);
