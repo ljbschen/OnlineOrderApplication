@@ -13,4 +13,6 @@ public interface RestaurantRepository extends MongoRepository<Restaurant, Long> 
     Page<Restaurant> findAll(Pageable pageable);
 
     Page<Restaurant> findByLocationWithin(Circle c, Pageable pageable);
+
+    Restaurant findByRestaurantName();
 }

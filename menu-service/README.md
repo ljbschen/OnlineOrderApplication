@@ -4,7 +4,7 @@
 #### 1. Rest APIs
 ##### Admin Privilege:
 * Upload Restaurant Information:
-    * POST URL:```/menu/upload``` 
+    * POST URL:```/upload``` 
     * Sample: 
     ```json
     {
@@ -59,7 +59,7 @@
     ```
 
 * Upload Menu Item Information: 
-    * POST URL:```/menu/addItems?restaurantName=$$$```
+    * POST URL:```/{restaurantName}/addItems```
     * Sample: 
     ```json
     {
@@ -81,7 +81,7 @@
     }
     ```
 * Delete All Restaurant Information: 
-    * DELETE URL: ```/menu/purge```
+    * DELETE URL: ```/purge```
     * Sample: 
     ```json
     {"admin": true}
@@ -89,11 +89,15 @@
     
 ##### User Privilege:
 * Search restaurant by name :
-    * GET URL: ```/menu/{restaurantName}```
+    * GET URL: ```/{restaurantName}```
     
 * Search restaurant by current location with optional customized pagination and distance
-    * GET URL: ```/menu/near```
-    * Sample: ```/menu/near?lat=38&lng=-77&page=0&size=10&distance=1```
+    * GET URL: ```/near```
+    * Sample: ```/near?lat=38&lng=-77&page=0&size=10&distance=1```
+    
+* Search menu within a range :
+    * GET URL: ```/{restaurantName}/menu```
+    * Sample: ```/{restaurantName}/menu?low=5&high=15```
 
 #### 2. HAL Browser
 * User can inspect supported REST APIs from Hal Browser

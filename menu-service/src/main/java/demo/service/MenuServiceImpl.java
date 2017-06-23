@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,8 +33,15 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Page<MenuItem> findByItemPriceBetween(double low, double high, Pageable pageable) {
-        return null;
+    public List<MenuItem> findByItemPriceBetween(String restaurantName, String low, String high) {
+        double l = Double.parseDouble(low);
+        double h = Double.parseDouble(high);
+        Restaurant restaurant = this.restaurantRepository.findByRestaurantName(restaurantName);
+        ArrayList<MenuItem> menu = new ArrayList<MenuItem>();
+        for (MenuItem item : restaurant.getMenu()) {
+            if (item.getItemPrice() > l && item.getItemPrice() < h) menu.add(item);
+        }
+        return menu;
     }
 
     @Override
