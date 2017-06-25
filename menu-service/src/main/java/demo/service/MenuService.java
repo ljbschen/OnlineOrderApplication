@@ -21,4 +21,6 @@ public interface MenuService {
     Page<Restaurant> findRestaurantWithIn(String page, String size, String distance, Point point);
 
     Restaurant findByRestaurantName(String restaurantName);
+
+    boolean deleteRestaurantByRestaurantName(Request request, String name);
 }

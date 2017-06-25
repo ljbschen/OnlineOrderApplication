@@ -74,4 +74,12 @@ public class MenuServiceImpl implements MenuService {
     public Restaurant findByRestaurantName(String restaurantName) {
         return this.restaurantRepository.findByRestaurantName(restaurantName);
     }
+
+    @Override
+    public boolean deleteRestaurantByRestaurantName(Request request, String name) {
+        if (request.isAdmin()) {
+            this.restaurantRepository.deleteRestaurantByRestaurantName(name);
+            return true;
+        } else return false;
+    }
 }

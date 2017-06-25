@@ -43,6 +43,13 @@ public class MenuServiceRestController {
     }
 
     // admin
+    @RequestMapping(value = "/{restaurantName}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteByRestaurantName(@RequestBody Request request, @PathVariable("restaurantName") String restaurantName) {
+        if (this.menuService.deleteRestaurantByRestaurantName(request, restaurantName)) return new ResponseEntity(HttpStatus.OK);
+        else return new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
+
+    // admin
     @RequestMapping(value = "/purge", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll(@RequestBody Request request) {
         if (this.menuService.deleteAll(request)) return new ResponseEntity(HttpStatus.OK);
