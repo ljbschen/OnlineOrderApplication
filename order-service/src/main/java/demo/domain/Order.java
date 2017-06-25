@@ -20,11 +20,17 @@ public class Order {
 
     private List<Item> items;
 
-    private String userName;
     private String shippingAddress;
 
     private enum OrderStatus {
         PURCHASED, PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
+    }
+
+    public Order(String userId, Date date, List<Item> items, String shippingAddress) {
+        this.userId = userId;
+        this.date = date;
+        this.items = items;
+        this.shippingAddress = shippingAddress;
     }
 
     public double getTotalPrice() {
@@ -44,6 +50,5 @@ public class Order {
         if (orderEvent.getType() == OrderEventType.CREATED) {
 
         }
-
     }
 }
