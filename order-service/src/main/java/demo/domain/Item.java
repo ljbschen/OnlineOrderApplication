@@ -11,4 +11,5 @@ public class Item {
     private String itemRestaurantName;
     private String itemNote;
     private double itemPrice;
+    private double itemTax;
 }

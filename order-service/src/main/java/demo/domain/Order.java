@@ -21,13 +21,29 @@ public class Order {
     private List<Item> items;
 
     private String userName;
-    private String orderAddress;
+    private String shippingAddress;
+
+    private enum OrderStatus {
+        PURCHASED, PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
+    }
 
     public double getTotalPrice() {
         double total = 0;
         for (Item item : items) {
             total += item.getItemPrice();
+            total += item.getItemTax();
         }
         return total;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void process(OrderEvent orderEvent) {
+        if (orderEvent.getType() == OrderEventType.CREATED) {
+
+        }
+
     }
 }
