@@ -4,14 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.kevin.cs504</groupId>
-    <artifactId>order-service</artifactId>
+    <artifactId>edge-service</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>online-order-service/edge-service</name>
 
     <parent>
         <groupId>com.kevin</groupId>
         <artifactId>online-order-service</artifactId>
         <version>1.0.0</version>
+        <relativePath>../</relativePath>
     </parent>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zuul</artifactId>
+        </dependency>
+    </dependencies>
 </project>
