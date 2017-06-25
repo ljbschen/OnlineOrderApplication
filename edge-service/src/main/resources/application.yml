@@ -12,3 +12,6 @@ zuul:
     payment-service:
       path: /payment-service/**
       url: http://localhost:9002
+    cart-service:
+      path: /cart-service/**
+      url: http://localhost:9003
