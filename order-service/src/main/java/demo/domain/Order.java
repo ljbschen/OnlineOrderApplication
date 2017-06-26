@@ -42,10 +42,6 @@ public class Order {
         return total;
     }
 
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
     public void process(OrderEvent orderEvent) {
         if (orderEvent.getType() == OrderEventType.CREATED) {
 

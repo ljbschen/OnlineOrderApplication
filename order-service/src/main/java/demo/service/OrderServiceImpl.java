@@ -30,9 +30,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(List<Item> items) {
+    public void createOrder(Order order) {
         Date date = new Date();
-        Order newOrder = new Order("admin", date, items, "address");
-        this.orderRepository.save(newOrder);
+        order.setDate(date);
+        this.orderRepository.save(order);
+    }
+
+    @Override
+    public void addOrderEvent(OrderEvent orderEvent, String orderId) {
+        orderEvent.setOrderId(orderId);
+        this.orderEventRepository.save(orderEvent);
     }
 }

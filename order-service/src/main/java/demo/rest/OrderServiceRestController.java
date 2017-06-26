@@ -22,8 +22,8 @@ public class OrderServiceRestController {
     }
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
-    public ResponseEntity createOrder(@RequestBody List<Item> items) {
-        orderService.createOrder(items);
+    public ResponseEntity createOrder(@RequestBody Order order) {
+        orderService.createOrder(order);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -35,6 +35,7 @@ public class OrderServiceRestController {
 
     @RequestMapping(value = "/orders/{orderId}/events", method = RequestMethod.POST)
     public ResponseEntity<OrderEvent> addOrderEvent(@RequestBody OrderEvent orderEvent, @PathVariable String orderId) {
+        orderService.addOrderEvent(orderEvent, orderId);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

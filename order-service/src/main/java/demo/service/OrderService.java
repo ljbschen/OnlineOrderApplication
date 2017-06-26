@@ -1,6 +1,5 @@
 package demo.service;
 
-import demo.domain.Item;
 import demo.domain.Order;
 import demo.domain.OrderEvent;
 
@@ -13,5 +12,7 @@ public interface OrderService {
 
     Order getOrder(String orderId);
 
-    void createOrder(List<Item> order);
+    void createOrder(Order order);
+
+    void addOrderEvent(OrderEvent orderEvent, String orderId);
 }
