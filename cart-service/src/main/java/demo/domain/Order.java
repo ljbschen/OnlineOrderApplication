@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Cart {
+public class Order {
     private List<CartItem> items;
-    private String userId;
+    private String orderId;
 }

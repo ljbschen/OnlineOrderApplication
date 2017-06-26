@@ -1,6 +1,7 @@
 package demo.rest;
 
 import demo.domain.Cart;
+import demo.domain.Order;
 import demo.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,24 +20,21 @@ public class CartServiceRestController {
         this.cartService = cartService;
     }
 
-//    @RequestMapping(value = "/account/cart", method = RequestMethod.POST)
-//    public void createCart() {
-//
-//    }
-
     @RequestMapping(value = "/cart/{userId}/events", method = RequestMethod.POST)
     public void addEvent(@PathVariable String userId) {
 
     }
 
     @RequestMapping(value = "/cart/{userId}", method = RequestMethod.GET)
-    public ResponseEntity getCart(@PathVariable String userId) {
-        return new ResponseEntity(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
+    public ResponseEntity<Cart> getCart(@PathVariable String userId) {
+        Cart cart = cartService.getCart(userId);
+        return new ResponseEntity<>(cart, HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
     }
 
     @RequestMapping(value = "/cart/{userId}/checkout", method = RequestMethod.POST)
-    public ResponseEntity checkout(@PathVariable String userId) {
-        return new ResponseEntity(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
+    public ResponseEntity<Order> checkout(@PathVariable String userId) {
+        Order order = cartService.checkout(userId);
+        return new ResponseEntity<>(order, HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
     }
 
 }
