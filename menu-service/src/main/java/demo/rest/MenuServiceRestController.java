@@ -29,14 +29,14 @@ public class MenuServiceRestController {
     }
 
     // admin
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/restaurants", method = RequestMethod.POST)
     public ResponseEntity uploadRestaurant(@RequestBody Request request) {
         if (this.menuService.addRestaurants(request)) return new ResponseEntity(HttpStatus.CREATED);
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     // admin
-    @RequestMapping(value = "/{restaurantName}/addItems", method = RequestMethod.POST)
+    @RequestMapping(value = "/{restaurantName}/menu", method = RequestMethod.POST)
     public ResponseEntity addMenuItemsWithRestaurantName(@RequestBody Request request, @PathVariable("restaurantName") String restaurantName) {
         if (this.menuService.addMenuItem(restaurantName, request)) return new ResponseEntity(HttpStatus.CREATED);
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -50,14 +50,14 @@ public class MenuServiceRestController {
     }
 
     // admin
-    @RequestMapping(value = "/purge", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/restaurants", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll(@RequestBody Request request) {
         if (this.menuService.deleteAll(request)) return new ResponseEntity(HttpStatus.OK);
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     // user
-    @RequestMapping(value = "/near", method = RequestMethod.GET)
+    @RequestMapping(value = "/restaurants/near", method = RequestMethod.GET)
     public Page<Restaurant> findRestaurantWithIn(
             @RequestParam(name = "lat") String lat,
             @RequestParam(name = "lng") String lng,

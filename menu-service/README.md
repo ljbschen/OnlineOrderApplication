@@ -4,7 +4,7 @@
 #### 1. Rest APIs
 ##### Admin Privilege:
 * Upload Restaurant Information:
-    * POST URL:```/upload``` 
+    * POST URL:```/restaurants``` 
     * Sample: 
     ```json
     {
@@ -59,7 +59,7 @@
     ```
 
 * Upload Menu Item Information: 
-    * POST URL:```/{restaurantName}/addItems```
+    * POST URL:```/{restaurantName}/menu```
     * Sample: 
     ```json
     {
@@ -81,7 +81,7 @@
     }
     ```
 * Delete All Restaurant Information: 
-    * DELETE URL: ```/purge```
+    * DELETE URL: ```/restaurants```
     * Sample: 
     ```json
     {"admin": true}
@@ -92,7 +92,7 @@
     * GET URL: ```/{restaurantName}```
     
 * Search restaurant by current location with optional customized pagination and distance
-    * GET URL: ```/near```
+    * GET URL: ```/restaurants/near```
     * Sample: ```/near?lat=38.9093216&lng=-76.0036435&page=0&size=10&distance=10```
     
 * Search menu within a range :
