@@ -22,9 +22,12 @@ public class CartServiceImpl implements CartService {
         cart.setUserId(userId);
         cart.setItems(new ArrayList<>());
         for (CartEvent event : events) {
-            if (event.getCartEventType() == CartEventType.ADD_ITEM ||
-                    event.getCartEventType() == CartEventType.DELETE_ITEM) {
-                cart.getItems().add(null);
+            if (event.getCartEventType() == CartEventType.ADD_ITEM) {
+                CartItem item = event.getItem();
+                cart.getItems().contains(item);
+                cart.getItems().add(item);
+            } else {
+
             }
         }
         return cart;
@@ -39,5 +42,15 @@ public class CartServiceImpl implements CartService {
         Order order = new Order();
         order.setItems(cart.getItems());
         return order;
+    }
+
+    @Override
+    public void addEvent(CartEvent cartEvent, String userId) {
+        if (cartEvent.getCartEventType() == CartEventType.CLEAR) {
+            cartEventRepository.deleteCartEventsByUserId(userId);
+        } else {
+            cartEvent.setUserId(userId);
+            this.cartEventRepository.save(cartEvent);
+        }
     }
 }

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CartEventRepository extends MongoRepository<CartEvent, String>{
     List<CartEvent> findCartEventsByUserIdOrderByDate(String userId);
+
+    void deleteCartEventsByUserId(String userId);
 }

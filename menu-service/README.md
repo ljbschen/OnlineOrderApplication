@@ -129,4 +129,4 @@ docker-compose up
 #### 4. Build and run Spring Boot application
 ```aidl
 mvn clean install
-java -jar target/menu-service-1.0-SNAPSHOT.jar
+java -jar target/menu-service-1.0.0.jar
