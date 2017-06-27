@@ -30,7 +30,7 @@ public class Order {
     private OrderStatus orderStatus;
 
     @JsonCreator
-    public Order(@JsonProperty("userId") String userId, @JsonProperty("items") List<Item> items, @JsonProperty("orderAddress") String shippingAddress,
+    public Order(@JsonProperty("userId") String userId, @JsonProperty("items") List<Item> items, @JsonProperty("shippingAddress") String shippingAddress,
                  @JsonProperty("orderNote") String orderNote) {
         this.date = new Date();
         this.userId = userId;

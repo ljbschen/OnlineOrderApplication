@@ -7,4 +7,5 @@ import lombok.Data;
 @Data
 public class OrderNote {
     private String orderNote;
+    private String shippingAddress;
 }

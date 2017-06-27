@@ -12,7 +12,7 @@ public class Order {
     private List<CartItem> items;
     private String userId;
     private String orderNote;
-    private String orderAddress;
+    private String shipping;
 
     public Order() {
         items = new ArrayList<CartItem>();

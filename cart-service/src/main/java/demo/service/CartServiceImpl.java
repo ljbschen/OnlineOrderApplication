@@ -54,6 +54,7 @@ public class CartServiceImpl implements CartService {
             order.getItems().add(item);
         }
         order.setOrderNote(orderNote.getOrderNote());
+        order.setShipping(orderNote.getShippingAddress());
         order.setUserId(userId);
 
         System.out.println(order);
