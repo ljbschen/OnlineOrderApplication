@@ -3,6 +3,7 @@ package demo.service;
 import demo.domain.Order;
 import demo.domain.OrderEvent;
 
+import java.net.URI;
 import java.util.List;
 
 public interface OrderService {

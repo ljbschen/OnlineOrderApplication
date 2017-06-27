@@ -37,6 +37,6 @@ public class CartServiceRestController {
         // return payment html
         URI uri = this.cartService.checkout(userId, orderNote);
         if (uri != null) return new ResponseEntity<>(uri, HttpStatus.ACCEPTED);
-        else return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        else return new ResponseEntity<>((URI) null, HttpStatus.BAD_REQUEST);
     }
 }

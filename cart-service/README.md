@@ -15,7 +15,7 @@ Cart-service is an event-driven application that keeps tracking states of shoppi
         "name": "1",
         "price": 12.99,
         "tax": 1.00,
-        "restaurantName":"oyo",
+        "restaurantName":"oyo"
       } 
     } 
     ```

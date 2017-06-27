@@ -23,9 +23,7 @@ public class Order {
 
     private String shippingAddress;
 
-    private enum OrderStatus {
-        PURCHASED, PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
-    }
+    private OrderStatus orderStatus;
 
     public Order(String userId, Date date, HashMap<Item, Integer> items, String shippingAddress) {
         this.userId = userId;

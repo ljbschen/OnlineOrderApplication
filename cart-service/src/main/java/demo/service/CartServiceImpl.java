@@ -2,15 +2,21 @@ package demo.service;
 
 import demo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
+    private static final String PAYMENT_URL= "localhost:8080/payment-service/index";
+    private static final String CREATE_ORDER_URL = "localhost:8080/order-service/order";
+
     private CartEventRepository cartEventRepository;
 
     @Autowired
@@ -50,9 +56,16 @@ public class CartServiceImpl implements CartService {
 
         // send the order to order-service
         RestTemplate restTemplate = new RestTemplate();
-        String paymentUrl = "";
-        URI uri = restTemplate.postForObject(paymentUrl, order, URI.class);
-        if (uri != null) cartEventRepository.deleteCartEventsByUserId(userId);
+        ResponseEntity<URI> response = restTemplate.postForEntity(CREATE_ORDER_URL, order, URI.class);
+        URI uri = null;
+        if (response.getStatusCode().equals(HttpStatus.CREATED)) {
+            try {
+                uri = new URI(PAYMENT_URL);
+                cartEventRepository.deleteCartEventsByUserId(userId);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
         return uri;
     }
 

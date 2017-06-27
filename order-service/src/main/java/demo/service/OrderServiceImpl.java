@@ -3,6 +3,7 @@ package demo.service;
 import demo.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     public void createOrder(Order order) {
         Date date = new Date();
         order.setDate(date);
+        order.setOrderStatus(OrderStatus.PURCHASED);
         this.orderRepository.save(order);
     }
 
