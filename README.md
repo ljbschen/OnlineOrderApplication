@@ -12,3 +12,8 @@ java -jar target/edge-service-1.0.0.jar
 2. Order-service
 3. Cart-service
 4. Payment-service
+
+#### Then Start MongoDB databases
+```aidl
+docker-compose up
+```
