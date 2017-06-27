@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,7 +19,7 @@ public class Order {
     private String orderId;
     private Date date;
 
-    private List<Item> items;
+    private HashMap<Item, Integer> items;
 
     private String shippingAddress;
 
@@ -26,7 +27,7 @@ public class Order {
         PURCHASED, PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
     }
 
-    public Order(String userId, Date date, List<Item> items, String shippingAddress) {
+    public Order(String userId, Date date, HashMap<Item, Integer> items, String shippingAddress) {
         this.userId = userId;
         this.date = date;
         this.items = items;
@@ -35,16 +36,10 @@ public class Order {
 
     public double getTotalPrice() {
         double total = 0;
-        for (Item item : items) {
+        for (Item item : items.keySet()) {
             total += item.getItemPrice();
             total += item.getItemTax();
         }
         return total;
-    }
-
-    public void process(OrderEvent orderEvent) {
-        if (orderEvent.getType() == OrderEventType.CREATED) {
-
-        }
     }
 }

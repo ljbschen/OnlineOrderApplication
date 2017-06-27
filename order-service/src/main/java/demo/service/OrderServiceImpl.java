@@ -41,4 +41,10 @@ public class OrderServiceImpl implements OrderService {
         orderEvent.setOrderId(orderId);
         this.orderEventRepository.save(orderEvent);
     }
+
+    public void process(OrderEvent orderEvent) {
+        if (orderEvent.getType() == OrderEventType.CREATED) {
+
+        }
+    }
 }

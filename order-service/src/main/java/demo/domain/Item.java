@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class Item {
     private String itemName;
-    private int itemQuantity;
     private String itemRestaurantName;
     private String itemNote;
     private double itemPrice;

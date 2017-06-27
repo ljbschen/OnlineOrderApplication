@@ -1,8 +1,11 @@
 # Cart Service
+## Introduction
+Cart-service is an event-driven application that keeps tracking states of shopping cart. I choose Mongodb as the datastore for quick and massive searching queries. 
 
 ## Feature Supported
 #### 1. Rest APIs
 * Add Cart Event:
+    * Create append-only states to the cart
     * POST URL:```/cart/{userId}/events``` 
     * Sample: 
     ```json
@@ -13,15 +16,16 @@
         "price": 12.99,
         "tax": 1.00,
         "restaurantName":"oyo",
-        "note":"no spicy"
       } 
     } 
     ```
 
 * Get current cart information: 
+    * Aggregate all events and return the current cart
     * GET URL:```/cart/{userId}```
     
 * Checkout current cart: 
+    * Generate Order object and send to Payment-Service, return a link to Payment-Service
     * POST URL: ```/cart/{userId}/checkout```
     
 #### 2. HAL Browser
