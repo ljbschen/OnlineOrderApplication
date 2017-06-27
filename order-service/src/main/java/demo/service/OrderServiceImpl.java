@@ -24,28 +24,42 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public List<OrderEvent> findOrderEventsByOrderId(String orderId) {
-        return this.orderEventRepository.findOrderEventsByOrderId(orderId);
+        return this.orderEventRepository.findOrderEventsByOrderIdOrderByDateAsc(orderId);
     }
 
     @Override
     public Order getOrder(String orderId) {
-        return orderRepository.findOne(orderId);
-    }
-
-    @Override
-    public void createOrder(Order order) {
-        this.orderRepository.save(order);
-    }
-
-    @Override
-    public void addOrderEvent(OrderEvent orderEvent, String orderId) {
-        orderEvent.setOrderId(orderId);
-        this.orderEventRepository.save(orderEvent);
-    }
-
-    public void process(OrderEvent orderEvent) {
-        if (orderEvent.getType() == OrderEventType.CREATED) {
-
+        Order order = orderRepository.findOne(orderId);
+        List<OrderEvent> events = orderEventRepository.findOrderEventsByOrderIdOrderByDateAsc(orderId);
+        for (OrderEvent event : events) {
+            order.process(event);
         }
+        return order;
+    }
+
+    @Override
+    public boolean createOrder(Order order) {
+        boolean result = false;
+        try {
+            order.setOrderStatus(OrderStatus.PURCHASED);
+            this.orderRepository.save(order);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean addOrderEvent(OrderEvent orderEvent) {
+        boolean result = false;
+        try {
+            orderEvent.setDate(new Date());
+            this.orderEventRepository.save(orderEvent);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

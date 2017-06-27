@@ -19,8 +19,9 @@ public class OrderServiceRestController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public ResponseEntity createOrder(@RequestBody Order order) {
-        orderService.createOrder(order);
-        return new ResponseEntity(HttpStatus.CREATED);
+        boolean result = orderService.createOrder(order);
+        if (result) return new ResponseEntity(HttpStatus.CREATED);
+        else return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @RequestMapping(value = "/orders/{orderId}", method = RequestMethod.GET)
@@ -29,10 +30,10 @@ public class OrderServiceRestController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/orders/{orderId}/events", method = RequestMethod.POST)
-    public ResponseEntity<OrderEvent> addOrderEvent(@RequestBody OrderEvent orderEvent, @PathVariable String orderId) {
-        orderService.addOrderEvent(orderEvent, orderId);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    @RequestMapping(value = "/orders/events", method = RequestMethod.POST)
+    public ResponseEntity<OrderEvent> addOrderEvent(@RequestBody OrderEvent orderEvent) {
+        boolean result = orderService.addOrderEvent(orderEvent);
+        if (result) return new ResponseEntity<>(HttpStatus.CREATED);
+        else return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
-
 }

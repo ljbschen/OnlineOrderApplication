@@ -5,15 +5,15 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Document
-public class OrderEvent {
+public class Payment {
     @Id
     private String id;
-    private Date date;
-    private OrderEventType type;
+
+    private String userId;
+    private CreditCart creditCart;
+
     private String orderId;
 }

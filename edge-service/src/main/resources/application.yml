@@ -15,3 +15,6 @@ zuul:
     cart-service:
       path: /cart-service/**
       url: http://localhost:9003
+    process-service:
+      path: /process-service/**
+      url: http://localhost:9004

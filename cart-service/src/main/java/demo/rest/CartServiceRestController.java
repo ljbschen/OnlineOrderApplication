@@ -21,9 +21,10 @@ public class CartServiceRestController {
     }
 
     @RequestMapping(value = "/cart/{userId}/events", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addEvent(@PathVariable String userId, @RequestBody CartEvent event) {
-        this.cartService.addEvent(event, userId);
+    public ResponseEntity addEvent(@PathVariable String userId, @RequestBody CartEvent event) {
+        boolean result = this.cartService.addEvent(event, userId);
+        if (result) return new ResponseEntity(HttpStatus.CREATED);
+        else return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @RequestMapping(value = "/cart/{userId}", method = RequestMethod.GET)

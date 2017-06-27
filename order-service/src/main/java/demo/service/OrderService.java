@@ -13,7 +13,7 @@ public interface OrderService {
 
     Order getOrder(String orderId);
 
-    void createOrder(Order order);
+    boolean createOrder(Order order);
 
-    void addOrderEvent(OrderEvent orderEvent, String orderId);
+    boolean addOrderEvent(OrderEvent orderEvent);
 }

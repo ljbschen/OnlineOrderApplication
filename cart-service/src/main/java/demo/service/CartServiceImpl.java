@@ -75,12 +75,19 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addEvent(CartEvent cartEvent, String userId) {
-        if (cartEvent.getCartEventType() == CartEventType.CLEAR) {
-            cartEventRepository.deleteCartEventsByUserId(userId);
-        } else {
-            cartEvent.setUserId(userId);
-            cartEventRepository.save(cartEvent);
+    public boolean addEvent(CartEvent cartEvent, String userId) {
+        boolean result = false;
+        try {
+            if (cartEvent.getCartEventType() == CartEventType.CLEAR) {
+                cartEventRepository.deleteCartEventsByUserId(userId);
+            } else {
+                cartEvent.setUserId(userId);
+                cartEventRepository.save(cartEvent);
+            }
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return result;
     }
 }

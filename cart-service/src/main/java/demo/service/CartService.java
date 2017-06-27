@@ -11,5 +11,5 @@ public interface CartService {
 
     URI checkout(String userId, OrderNote orderNote);
 
-    void addEvent(CartEvent cartEvent, String userId);
+    boolean addEvent(CartEvent cartEvent, String userId);
 }

@@ -8,7 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -48,5 +47,9 @@ public class Order {
             total += item.getItemTax();
         }
         return total;
+    }
+
+    public void process(OrderEvent orderEvent) {
+        orderStatus = orderStatus.nextStatus(orderEvent);
     }
 }
