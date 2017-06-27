@@ -19,6 +19,19 @@ Cart-service is an event-driven application that keeps tracking states of shoppi
       } 
     } 
     ```
+    or
+    ```json
+    {
+      "cartEventType": "DELETE_ITEM",
+      "item": {
+        "name": "1",
+        "price": 12.99,
+        "tax": 1,
+        "restaurantName": "oyo"
+      }
+    }
+     ```
+    
 
 * Get current cart information: 
     * Aggregate all events and return the current cart

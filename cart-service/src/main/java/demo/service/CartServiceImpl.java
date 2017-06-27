@@ -75,7 +75,7 @@ public class CartServiceImpl implements CartService {
             cartEventRepository.deleteCartEventsByUserId(userId);
         } else {
             cartEvent.setUserId(userId);
-            this.cartEventRepository.save(cartEvent);
+            cartEventRepository.save(cartEvent);
         }
     }
 }
