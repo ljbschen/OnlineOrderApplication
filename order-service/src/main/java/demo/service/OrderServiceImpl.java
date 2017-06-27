@@ -1,6 +1,7 @@
 package demo.service;
 
 import demo.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -12,6 +13,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderEventRepository orderEventRepository;
     private OrderRepository orderRepository;
 
+    @Autowired
     public OrderServiceImpl(OrderRepository orderRepository, OrderEventRepository orderEventRepository) {
         this.orderEventRepository = orderEventRepository;
         this.orderRepository = orderRepository;
@@ -32,9 +34,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createOrder(Order order) {
-        Date date = new Date();
-        order.setDate(date);
-        order.setOrderStatus(OrderStatus.PURCHASED);
         this.orderRepository.save(order);
     }
 

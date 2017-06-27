@@ -1,6 +1,8 @@
 package demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,23 +20,30 @@ public class Order {
     @Id
     private String orderId;
     private Date date;
+    private String orderNote;
 
-    private HashMap<Item, Integer> items;
+    private List<Item> items;
 
     private String shippingAddress;
 
+    private double orderTotal;
     private OrderStatus orderStatus;
 
-    public Order(String userId, Date date, HashMap<Item, Integer> items, String shippingAddress) {
+    @JsonCreator
+    public Order(@JsonProperty("userId") String userId, @JsonProperty("items") List<Item> items, @JsonProperty("orderAddress") String shippingAddress,
+                 @JsonProperty("orderNote") String orderNote) {
+        this.date = new Date();
         this.userId = userId;
-        this.date = date;
         this.items = items;
         this.shippingAddress = shippingAddress;
+        this.orderNote = orderNote;
+        this.orderStatus = OrderStatus.PURCHASED;
+        this.orderTotal = getTotalPrice();
     }
 
-    public double getTotalPrice() {
+    private double getTotalPrice() {
         double total = 0;
-        for (Item item : items.keySet()) {
+        for (Item item : items) {
             total += item.getItemPrice();
             total += item.getItemTax();
         }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -14,8 +15,8 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-    private static final String PAYMENT_URL= "localhost:8080/payment-service/index";
-    private static final String CREATE_ORDER_URL = "localhost:8080/order-service/order";
+    private static final String PAYMENT_URL= "http://localhost:8080/payment-service/index";
+    private static final String CREATE_ORDER_URL = "http://localhost:8080/order-service/orders";
 
     private CartEventRepository cartEventRepository;
 
@@ -46,6 +47,7 @@ public class CartServiceImpl implements CartService {
 
     public URI checkout(String userId, OrderNote orderNote) {
         Cart cart = aggregation(userId);
+        System.out.println(cart);
         Order order = new Order();
         for (CartItem item : cart.getItemMap().keySet()) {
             item.setItemQuantity(cart.getItemMap().get(item));
@@ -54,17 +56,19 @@ public class CartServiceImpl implements CartService {
         order.setOrderNote(orderNote.getOrderNote());
         order.setUserId(userId);
 
-        // send the order to order-service
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<URI> response = restTemplate.postForEntity(CREATE_ORDER_URL, order, URI.class);
+        System.out.println(order);
         URI uri = null;
-        if (response.getStatusCode().equals(HttpStatus.CREATED)) {
-            try {
+        // send the order to order-service
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            System.out.println(CREATE_ORDER_URL);
+            ResponseEntity<URI> response = restTemplate.postForEntity(CREATE_ORDER_URL, order, URI.class);
+            if (response.getStatusCode().equals(HttpStatus.CREATED)) {
                 uri = new URI(PAYMENT_URL);
                 cartEventRepository.deleteCartEventsByUserId(userId);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
             }
+        } catch (URISyntaxException | HttpClientErrorException e) {
+            e.printStackTrace();
         }
         return uri;
     }
