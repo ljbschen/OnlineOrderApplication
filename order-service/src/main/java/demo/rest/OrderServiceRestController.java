@@ -31,9 +31,9 @@ public class OrderServiceRestController {
     }
 
     @RequestMapping(value = "/orders/events", method = RequestMethod.POST)
-    public ResponseEntity<OrderEvent> addOrderEvent(@RequestBody OrderEvent orderEvent) {
+    public ResponseEntity addOrderEvent(@RequestBody OrderEvent orderEvent) {
         boolean result = orderService.addOrderEvent(orderEvent);
-        if (result) return new ResponseEntity<>(HttpStatus.CREATED);
-        else return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        if (result) return new ResponseEntity(HttpStatus.CREATED);
+        else return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
     }
 }

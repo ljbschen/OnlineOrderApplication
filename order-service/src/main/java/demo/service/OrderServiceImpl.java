@@ -29,12 +29,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrder(String orderId) {
-        Order order = orderRepository.findOne(orderId);
-        List<OrderEvent> events = orderEventRepository.findOrderEventsByOrderIdOrderByDateAsc(orderId);
-        for (OrderEvent event : events) {
-            order.process(event);
+        try {
+            Order order = this.orderRepository.findOne(orderId);
+            List<OrderEvent> events = this.orderEventRepository.findOrderEventsByOrderIdOrderByDateAsc(orderId);
+            for (OrderEvent event : events) {
+                order.process(event);
+            }
+            this.orderRepository.save(order);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return order;
+        return this.orderRepository.findOne(orderId);
     }
 
     @Override

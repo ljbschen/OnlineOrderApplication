@@ -1,10 +1,11 @@
 package demo.service;
 
-import demo.domain.Payment;
-import demo.domain.PaymentEvent;
-import demo.domain.PaymentRepository;
+import demo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -26,6 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
     public boolean createPayment(Payment payment) {
         boolean result = false;
         try {
+            payment.setPaymentStatus(PaymentStatus.CREATED);
             this.paymentRepository.save(payment);
             result = true;
         } catch (Exception e) {
@@ -36,9 +38,19 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public boolean addPaymentEvent(PaymentEvent paymentEvent) {
+        // add payment event to current payment status and push an orderEvent to order service
         boolean result = false;
         try {
-            result = true;
+            Payment payment = getPaymentById(paymentEvent.getPaymentId());
+            payment.process(paymentEvent);
+
+            OrderEvent orderEvent = new OrderEvent(payment);
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity response = restTemplate.postForObject(ORDER_EVENT_URL, orderEvent, ResponseEntity.class);
+            if (response.getStatusCode().equals(HttpStatus.CREATED)) {
+                result = true;
+                this.paymentRepository.save(payment);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

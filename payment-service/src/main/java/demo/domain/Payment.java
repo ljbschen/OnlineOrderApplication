@@ -16,4 +16,9 @@ public class Payment {
     private CreditCart creditCart;
 
     private String orderId;
+    private PaymentStatus paymentStatus;
+
+    public void process(PaymentEvent paymentEvent) {
+        paymentStatus = paymentStatus.nextStatus(paymentEvent);
+    }
 }
