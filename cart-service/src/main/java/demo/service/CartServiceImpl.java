@@ -45,6 +45,9 @@ public class CartServiceImpl implements CartService {
         return aggregation(userId);
     }
 
+    /*
+    Send the order to order-service and returns the page for payment information
+     */
     public URI checkout(String userId, OrderNote orderNote) {
         Cart cart = aggregation(userId);
         System.out.println(cart);
@@ -59,8 +62,9 @@ public class CartServiceImpl implements CartService {
 
         System.out.println(order);
         URI uri = null;
-        // send the order to order-service
+
         try {
+            // send the order to order-service
             RestTemplate restTemplate = new RestTemplate();
             System.out.println(CREATE_ORDER_URL);
             ResponseEntity<URI> response = restTemplate.postForEntity(CREATE_ORDER_URL, order, URI.class);
