@@ -44,7 +44,8 @@ public class PaymentServiceImpl implements PaymentService {
                 this.paymentRepository.save(payment);
                 paymentId = payment.getId();
                 // push task to MQ for process service to complete the detail processing
-                pushToQueue(paymentId);
+                // serialize payment to string
+                pushToQueue(payment.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,7 +74,7 @@ public class PaymentServiceImpl implements PaymentService {
         return result;
     }
 
-    private void pushToQueue(String message) throws IOException, TimeoutException {
+    private void pushToQueue(String payment) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
@@ -81,10 +82,10 @@ public class PaymentServiceImpl implements PaymentService {
 
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+        channel.basicPublish("", QUEUE_NAME, null, payment.getBytes());
 
         channel.close();
         connection.close();
-        System.out.println("pushed to queue for payment: " + message);
+        System.out.println("pushed to queue for payment: " + payment);
     }
 }

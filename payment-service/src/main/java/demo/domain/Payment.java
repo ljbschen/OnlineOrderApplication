@@ -21,4 +21,14 @@ public class Payment {
     public void process(PaymentEvent paymentEvent) {
         paymentStatus = paymentStatus.nextStatus(paymentEvent);
     }
+
+    @Override
+    public String toString() {
+        return "Payment {" +
+                "paymentId='" + id + '\'' +
+                "userId='" + userId + '\'' +
+                "orderId='" + orderId + '\'' +
+                "paymentStatus='" + paymentStatus.toString() + '\'';
+    }
 }
+

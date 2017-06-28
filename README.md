@@ -1,8 +1,10 @@
 # OnlineOrderApplication
 
 #### Introduction
+Overall Call Flow
 ![alt text](https://user-images.githubusercontent.com/9488989/27652635-57197dc2-5bf1-11e7-92a3-6a9e5afcdc6d.png)
 
+Please check the individual service for exposed API
 
 #### Start Edging Service first
 ```
