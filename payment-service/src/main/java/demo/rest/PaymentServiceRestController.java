@@ -1,5 +1,6 @@
 package demo.rest;
 
+import demo.domain.Invoice;
 import demo.domain.Payment;
 import demo.domain.PaymentEvent;
 import demo.service.PaymentService;
@@ -18,10 +19,13 @@ public class PaymentServiceRestController {
     }
 
     @RequestMapping(value = "/payment", method = RequestMethod.POST)
-    public ResponseEntity createPayment(@RequestBody Payment payment) {
-        boolean result = this.paymentService.createPayment(payment);
-        if (result) return new ResponseEntity(HttpStatus.CREATED);
-        else return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity<Invoice> createPayment(@RequestBody Payment payment) {
+        String paymentId = this.paymentService.createPayment(payment);
+        if (paymentId != null) {
+            Invoice invoice = new Invoice(this.paymentService.getPaymentById(paymentId));
+            return new ResponseEntity<>(invoice, HttpStatus.CREATED);
+        }
+        else return new ResponseEntity<>((Invoice) null, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @RequestMapping(value = "/payment/{paymentId}", method = RequestMethod.GET)

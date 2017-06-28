@@ -11,4 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Invoice {
     @Id
     private String id;
+    private String paymentId;
+    private String orderId;
+
+    public Invoice(Payment payment) {
+        this.paymentId = payment.getId();
+        this.orderId = payment.getOrderId();
+    }
 }

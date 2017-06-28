@@ -6,7 +6,7 @@ import demo.domain.PaymentEvent;
 public interface PaymentService {
     Payment getPaymentById(String id);
 
-    boolean createPayment(Payment payment);
+    String createPayment(Payment payment);
 
     boolean addPaymentEvent(PaymentEvent paymentEvent);
 }

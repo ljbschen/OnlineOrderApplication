@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Random;
+
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
@@ -23,17 +25,23 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository.findById(id);
     }
 
+    // blocking process to get authorization from card issuer
     @Override
-    public boolean createPayment(Payment payment) {
-        boolean result = false;
+    public String createPayment(Payment payment) {
+        String paymentId = null;
         try {
             payment.setPaymentStatus(PaymentStatus.CREATED);
-            this.paymentRepository.save(payment);
-            result = true;
+            // simulate the authorization process
+            Thread.sleep(2000);
+            int i = new Random().nextInt(10);
+            if (i > 0) {
+                this.paymentRepository.save(payment);
+                paymentId = payment.getId();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return paymentId;
     }
 
     @Override
