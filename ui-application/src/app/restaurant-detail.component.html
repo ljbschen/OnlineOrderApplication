@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+  <div *ngIf="restaurant">
+    <h2>{{restaurant.name}} details!</h2>
+    <div>
+      <label>id: </label>{{restaurant.id}}</div>
+    <div>
+      <label>name: </label>
+      <input [(ngModel)]="restaurant.name" placeholder="name" />
+    </div>
+    <li *ngFor="let restaurant of restaurants"
+        [class.selected]="restaurant === selectedRestaurant"
+        (click)="onSelect(restaurant)">
+      <span class="badge">{{restaurant.id}}</span> {{restaurant.name}}
+    </li>
+    <button (click)="goBack()">Back</button>
+    <button (click)="save()">Save</button>
+  </div>
+<body>
+
+</body>
+</html>

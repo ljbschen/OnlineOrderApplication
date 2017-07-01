@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+  <h2>My Restaurants</h2>
+  <ul class="restaurants">
+    <li *ngFor="let restaurant of restaurants"
+        [class.selected]="restaurant === selectedRestaurant"
+        (click)="onSelect(restaurant)">
+      <span class="badge">{{restaurant.id}}</span>
+      <span>{{restaurant.name}}</span>
+      <button class="delete"
+              (click)="delete(restaurant); $event.stopPropagation()">x</button>
+    </li>
+  </ul>
+  <div *ngIf="selectedRestaurant">
+    <h2>
+      {{selectedRestaurant.name | uppercase}} is my restaurant
+    </h2>
+    <button (click)="gotoDetail()">View Details</button>
+  </div>
+  <div>
+    <label>Restaurant name:</label> <input #restaurantName />
+    <button (click)="add(restaurantName.value); restaurantName.value=''">
+      Add
+    </button>
+  </div>
+<body>
+
+</body>
+</html>

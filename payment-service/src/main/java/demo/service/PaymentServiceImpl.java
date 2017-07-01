@@ -81,7 +81,6 @@ public class PaymentServiceImpl implements PaymentService {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(QUEUE_NAME, true, false, false, null);
-
         channel.basicPublish("", QUEUE_NAME, null, payment.getBytes());
 
         channel.close();
