@@ -11,8 +11,8 @@
       <li *ngFor="let item of items"
           [class.selected]="item === selectedItem"
           (click)="onSelect(item)">
-        <span class="badge">{{item.price}}</span>
-        <span>{{item.name}}</span>
+        <span class="badge">{{item.itemPrice}}</span>
+        <span>{{item.itemName}}</span>
       </li>
     </ul>
     <button (click)="goBack()">Back</button>

@@ -1,5 +1,6 @@
 export class Item {
-  name: string;
-  price: number;
-  restaurantName: string;
+  itemDescription: string;
+  itemName: string;
+  itemPrice: number;
+  itemType: string;
 }

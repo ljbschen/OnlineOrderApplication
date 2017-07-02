@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { CartItem } from './cartItem';
+import { Item } from './item';
 
 @Injectable()
 export class CartService {
@@ -48,7 +49,7 @@ export class CartService {
       .catch(this.handleError);
   }
 
-  addItem(selectedItem: CartItem): Promise<void> {
+  addItem(selectedItem: Item): Promise<void> {
     const url = `${this.cartUrl}/${name}`;
     return this.http.post(url, {body: selectedItem})
       .toPromise()

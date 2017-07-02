@@ -9,13 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 var cart_service_1 = require("./cart.service");
 var CartComponent = (function () {
     // injection
-    function CartComponent(cartService, router) {
+    function CartComponent(cartService) {
         this.cartService = cartService;
-        this.router = router;
     }
     CartComponent.prototype.onSelect = function (item) {
         this.selectedItem = item;
@@ -47,7 +45,7 @@ CartComponent = __decorate([
         templateUrl: './cart.component.html',
         styleUrls: ['./cart.component.css']
     }),
-    __metadata("design:paramtypes", [cart_service_1.CartService, router_1.Router])
+    __metadata("design:paramtypes", [cart_service_1.CartService])
 ], CartComponent);
 exports.CartComponent = CartComponent;
 //# sourceMappingURL=cart.component.js.map

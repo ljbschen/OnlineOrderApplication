@@ -13,7 +13,7 @@ var cart_component_1 = require("./cart.component");
 var routes = [
     { path: '', redirectTo: '/restaurants', pathMatch: 'full' },
     { path: 'cart', component: cart_component_1.CartComponent },
-    { path: 'detail/:id', component: restaurant_detail_component_1.RestaurantDetailComponent },
+    { path: 'detail/:restaurantName', component: restaurant_detail_component_1.RestaurantDetailComponent },
     { path: 'restaurants', component: restaurants_component_1.RestaurantComponent }
 ];
 var AppRoutingModule = (function () {

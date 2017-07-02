@@ -5,14 +5,14 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestaurantService {
-  private restaurantsUrl = 'api/restaurants';  // URL to web api
+  private restaurantsUrl = 'http://localhost:8080/menu-service/restaurants';  // URL to web api
 
   constructor(private http: Http) { }
 
   getRestaurants(): Promise<Restaurant[]> {
     return this.http.get(this.restaurantsUrl)
       .toPromise()
-      .then(response => response.json().data as Restaurant[])
+      .then(response => response.json().content as Restaurant[])
       .catch(this.handleError);
   }
 
@@ -21,11 +21,11 @@ export class RestaurantService {
     return Promise.reject(error.message || error);
   }
 
-  getRestaurant(id: number): Promise<Restaurant> {
+  getRestaurant(id: string): Promise<Restaurant> {
     const url = `${this.restaurantsUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().data as Restaurant)
+      .then(response => response.json() as Restaurant)
       .catch(this.handleError);
   }
 

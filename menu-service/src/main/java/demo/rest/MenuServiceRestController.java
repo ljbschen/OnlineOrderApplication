@@ -36,14 +36,14 @@ public class MenuServiceRestController {
     }
 
     // admin
-    @RequestMapping(value = "/{restaurantName}/menu", method = RequestMethod.POST)
+    @RequestMapping(value = "/restaurants/{restaurantName}/menu", method = RequestMethod.POST)
     public ResponseEntity addMenuItemsWithRestaurantName(@RequestBody Request request, @PathVariable("restaurantName") String restaurantName) {
         if (this.menuService.addMenuItem(restaurantName, request)) return new ResponseEntity(HttpStatus.CREATED);
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     // admin
-    @RequestMapping(value = "/{restaurantName}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/restaurants/{restaurantName}", method = RequestMethod.DELETE)
     public ResponseEntity deleteByRestaurantName(@RequestBody Request request, @PathVariable("restaurantName") String restaurantName) {
         if (this.menuService.deleteRestaurantByRestaurantName(request, restaurantName)) return new ResponseEntity(HttpStatus.OK);
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -56,6 +56,8 @@ public class MenuServiceRestController {
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
+    // user
+    @CrossOrigin
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
     public Page<Restaurant> findAll(
             @RequestParam(name = "page", defaultValue = DEFAULT_PAGE) String page,
@@ -64,6 +66,7 @@ public class MenuServiceRestController {
     }
 
     // user
+    @CrossOrigin
     @RequestMapping(value = "/restaurants/near", method = RequestMethod.GET)
     public Page<Restaurant> findRestaurantWithIn(
             @RequestParam(name = "lat") String lat,
@@ -75,13 +78,15 @@ public class MenuServiceRestController {
     }
 
     // user
-    @RequestMapping(value = "/{restaurantName}", method = RequestMethod.GET)
+    @CrossOrigin
+    @RequestMapping(value = "/restaurants/{restaurantName}", method = RequestMethod.GET)
     public Restaurant findByRestaurantName(@PathVariable("restaurantName") String restaurantName) {
         return this.menuService.findByRestaurantName(restaurantName);
     }
 
     // user
-    @RequestMapping(value = "/{restaurantName}/menu", method = RequestMethod.GET)
+    @CrossOrigin
+    @RequestMapping(value = "/restaurants/{restaurantName}/menu", method = RequestMethod.GET)
     public List<MenuItem> findByItemPriceBetween(@PathVariable("restaurantName") String restaurantName,
                                                  @RequestParam(name = "low", defaultValue = DEFAULT_LOW) String low,
                                                  @RequestParam(name = "high", defaultValue = DEFAULT_HIGH) String high) {

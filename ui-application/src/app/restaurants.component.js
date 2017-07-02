@@ -29,7 +29,7 @@ var RestaurantComponent = (function () {
         this.getRestaurants();
     };
     RestaurantComponent.prototype.gotoDetail = function () {
-        this.router.navigate(['/detail', this.selectedRestaurant.id]);
+        this.router.navigate(['/detail', this.selectedRestaurant.restaurantName]);
     };
     return RestaurantComponent;
 }());

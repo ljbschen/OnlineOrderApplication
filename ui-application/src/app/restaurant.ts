@@ -1,6 +1,10 @@
 import { Item } from './item';
 export class Restaurant {
-  id: number;
-  name: string;
-  items: Item[];
+  location: {x: number, y: number};
+  menu: Item[];
+  restaurantName: string;
+  restaurantAddress: string;
+  restaurantCity: string;
+  restaurantCuisine: string;
+
 }

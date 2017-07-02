@@ -14,13 +14,13 @@ require("rxjs/add/operator/toPromise");
 var RestaurantService = (function () {
     function RestaurantService(http) {
         this.http = http;
-        this.restaurantsUrl = 'api/restaurants'; // URL to web api
+        this.restaurantsUrl = 'http://localhost:8080/menu-service/restaurants'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     RestaurantService.prototype.getRestaurants = function () {
         return this.http.get(this.restaurantsUrl)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) { return response.json().content; })
             .catch(this.handleError);
     };
     RestaurantService.prototype.handleError = function (error) {
@@ -31,7 +31,7 @@ var RestaurantService = (function () {
         var url = this.restaurantsUrl + "/" + id;
         return this.http.get(url)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     RestaurantService.prototype.delete = function (id) {

@@ -16,7 +16,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class RestaurantDetailComponent implements OnInit{
   @Input() restaurant: Restaurant;
-  items: Item[];
+  @Input() items: Item[];
   selectedItem: Item;
 
   constructor (
@@ -28,12 +28,12 @@ export class RestaurantDetailComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.restaurantService.getRestaurant(+params.get('id')))
-      .subscribe(restaurant => {
-        this.restaurant = restaurant;
-        this.items = restaurant.items;
-        }
-      );
+      .switchMap((params: ParamMap) => this.restaurantService.getRestaurant(params.get("restaurantName")))
+      .subscribe(result => {
+        console.log(result);
+        this.restaurant = result;
+        this.items = this.restaurant.menu;
+      });
   }
 
   goBack(): void {
@@ -50,6 +50,6 @@ export class RestaurantDetailComponent implements OnInit{
   }
 
   add(): void {
-    window.alert("add " + this.selectedItem.name + " successfully");
+    window.alert("add " + this.selectedItem.itemName + " successfully");
   }
 }

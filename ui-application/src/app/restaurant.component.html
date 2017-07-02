@@ -9,13 +9,14 @@
     <li *ngFor="let restaurant of restaurants"
         [class.selected]="restaurant === selectedRestaurant"
         (click)="onSelect(restaurant)">
-      <span class="badge">{{restaurant.id}}</span>
-      <span>{{restaurant.name}}</span>
+      <span class="badge">{{restaurant.restaurantName}}</span>
+      <span>{{restaurant.restaurantAddress}}</span>
+      <span>{{restaurant.restaurantCity}}</span>
     </li>
   </ul>
   <div *ngIf="selectedRestaurant">
     <h2>
-      {{selectedRestaurant.name | uppercase}} is my restaurant
+      {{selectedRestaurant.restaurantName | uppercase}} is my restaurant
     </h2>
     <button (click)="gotoDetail()">View Menu</button>
   </div>

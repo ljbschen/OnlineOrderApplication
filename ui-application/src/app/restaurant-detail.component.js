@@ -25,10 +25,11 @@ var RestaurantDetailComponent = (function () {
     RestaurantDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.paramMap
-            .switchMap(function (params) { return _this.restaurantService.getRestaurant(+params.get('id')); })
-            .subscribe(function (restaurant) {
-            _this.restaurant = restaurant;
-            _this.items = restaurant.items;
+            .switchMap(function (params) { return _this.restaurantService.getRestaurant(params.get("restaurantName")); })
+            .subscribe(function (result) {
+            console.log(result);
+            _this.restaurant = result;
+            _this.items = _this.restaurant.menu;
         });
     };
     RestaurantDetailComponent.prototype.goBack = function () {
@@ -43,7 +44,7 @@ var RestaurantDetailComponent = (function () {
         this.selectedItem = item;
     };
     RestaurantDetailComponent.prototype.add = function () {
-        window.alert("add " + this.selectedItem.name + " successfully");
+        window.alert("add " + this.selectedItem.itemName + " successfully");
     };
     return RestaurantDetailComponent;
 }());
@@ -51,6 +52,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", restaurant_1.Restaurant)
 ], RestaurantDetailComponent.prototype, "restaurant", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], RestaurantDetailComponent.prototype, "items", void 0);
 RestaurantDetailComponent = __decorate([
     core_1.Component({
         selector: 'restaurant-detail',

@@ -32,7 +32,7 @@ export class RestaurantComponent implements OnInit {
   }
 
   gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedRestaurant.id]);
+    this.router.navigate(['/detail', this.selectedRestaurant.restaurantName]);
   }
 }
 

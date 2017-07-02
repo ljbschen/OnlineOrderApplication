@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CartService } from './cart.service';
 import { CartItem } from './cartItem';
 
@@ -14,7 +13,7 @@ export class CartComponent implements OnInit {
   selectedItem: CartItem;
 
   // injection
-  constructor(private cartService: CartService, private router: Router) { }
+  constructor(private cartService: CartService) { }
 
   onSelect(item: CartItem): void {
     this.selectedItem = item;
