@@ -14,11 +14,11 @@ require("rxjs/add/operator/toPromise");
 var CartService = (function () {
     function CartService(http) {
         this.http = http;
-        this.restaurantsUrl = 'api/restaurants'; // URL to web api
+        this.cartUrl = 'localhost:8080/cart-service/cart/1'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     CartService.prototype.getItems = function () {
-        return this.http.get(this.restaurantsUrl)
+        return this.http.get(this.cartUrl)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
@@ -44,14 +44,14 @@ var CartService = (function () {
     //     .catch(this.handleError);
     // }
     CartService.prototype.delete = function (name) {
-        var url = this.restaurantsUrl + "/" + name;
+        var url = this.cartUrl + "/" + name;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then(function () { return null; })
             .catch(this.handleError);
     };
     CartService.prototype.addItem = function (selectedItem) {
-        var url = this.restaurantsUrl + "/" + name;
+        var url = this.cartUrl + "/" + name;
         return this.http.post(url, { body: selectedItem })
             .toPromise()
             .then(function () { return null; })

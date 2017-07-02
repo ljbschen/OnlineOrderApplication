@@ -23,4 +23,6 @@ public interface MenuService {
     Restaurant findByRestaurantName(String restaurantName);
 
     boolean deleteRestaurantByRestaurantName(Request request, String name);
+
+    Page<Restaurant> findAll(String page, String size);
 }

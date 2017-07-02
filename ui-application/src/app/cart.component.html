@@ -5,12 +5,14 @@
 <body>
   <h3>Top Restaurants</h3>
   <div class="grid grid-pad">
-    <a *ngFor="let restaurant of restaurants"  [routerLink]="['/detail', restaurant.id]"  class="col-1-5">
-      <div class="module restaurant">
-        <h4>{{restaurant.name}}</h4>
-      </div>
-    </a>
+    <ul class="items">
+      <li *ngFor="let item of items"
+          [class.selected]="item === selectedItem"
+          (click)="onSelect(item)">
+        <span class="badge">{{item.price}}</span>
+        <span>{{item.name}}</span>
+      </li>
+    </ul>
   </div>
-  <restaurant-search></restaurant-search>
 </body>
 </html>

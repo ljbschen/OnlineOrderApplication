@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from './item';
 import { Router } from '@angular/router';
 import { CartService } from './cart.service';
+import { CartItem } from './cartItem';
 
 @Component({
-  selector: 'my-items',
-  templateUrl: './restaurant.component.html',
-  styleUrls: [ './restaurants.component.css' ]
+  selector: 'my-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: [ './cart.component.css' ]
 })
 
 export class CartComponent implements OnInit {
-
-  items: Item[];
-  selectedItem: Item;
+  items: CartItem[];
+  selectedItem: CartItem;
 
   // injection
   constructor(private cartService: CartService, private router: Router) { }
 
-  onSelect(item: Item): void {
+  onSelect(item: CartItem): void {
     this.selectedItem = item;
   }
 
@@ -30,7 +29,7 @@ export class CartComponent implements OnInit {
     this.getItems();
   }
 
-  delete(item: Item): void {
+  delete(item: CartItem): void {
     this.cartService
       .delete(item.name)
       .then(() => {

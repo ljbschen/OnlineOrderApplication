@@ -43,9 +43,9 @@ var CartComponent = (function () {
 }());
 CartComponent = __decorate([
     core_1.Component({
-        selector: 'my-items',
-        templateUrl: './restaurant.component.html',
-        styleUrls: ['./restaurants.component.css']
+        selector: 'my-cart',
+        templateUrl: './cart.component.html',
+        styleUrls: ['./cart.component.css']
     }),
     __metadata("design:paramtypes", [cart_service_1.CartService, router_1.Router])
 ], CartComponent);

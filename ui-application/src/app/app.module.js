@@ -16,7 +16,6 @@ var app_component_1 = require("./app.component");
 var restaurants_component_1 = require("./restaurants.component");
 var restaurant_service_1 = require("./restaurant.service");
 var app_routing_module_1 = require("./app-routing.module");
-var restaurant_search_component_1 = require("./restaurant-search.component");
 var cart_component_1 = require("./cart.component");
 var cart_service_1 = require("./cart.service");
 var AppModule = (function () {
@@ -37,7 +36,6 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             restaurant_detail_component_1.RestaurantDetailComponent,
             restaurants_component_1.RestaurantComponent,
-            restaurant_search_component_1.RestaurantSearchComponent,
             cart_component_1.CartComponent
         ],
         providers: [

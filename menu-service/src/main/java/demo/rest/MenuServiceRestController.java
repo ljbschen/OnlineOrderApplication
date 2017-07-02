@@ -56,6 +56,13 @@ public class MenuServiceRestController {
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
+    @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
+    public Page<Restaurant> findAll(
+            @RequestParam(name = "page", defaultValue = DEFAULT_PAGE) String page,
+            @RequestParam(name = "size", defaultValue = DEFAULT_SIZE) String size) {
+        return this.menuService.findAll(page, size);
+    }
+
     // user
     @RequestMapping(value = "/restaurants/near", method = RequestMethod.GET)
     public Page<Restaurant> findRestaurantWithIn(

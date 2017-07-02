@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Restaurant } from './restaurant';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Item } from './item';
+import { CartItem } from './cartItem';
 
 @Injectable()
 export class CartService {
-  private restaurantsUrl = 'api/restaurants';  // URL to web api
+  private cartUrl = 'localhost:8080/cart-service/cart/1';  // URL to web api
 
   constructor(private http: Http) { }
 
-  getItems(): Promise<Item[]> {
-    return this.http.get(this.restaurantsUrl)
+  getItems(): Promise<CartItem[]> {
+    return this.http.get(this.cartUrl)
       .toPromise()
-      .then(response => response.json().data as Item[])
+      .then(response => response.json().data as CartItem[])
       .catch(this.handleError);
   }
 
@@ -42,15 +41,15 @@ export class CartService {
   // }
 
   delete(name: string): Promise<void> {
-    const url = `${this.restaurantsUrl}/${name}`;
+    const url = `${this.cartUrl}/${name}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
   }
 
-  addItem(selectedItem: Item): Promise<void> {
-    const url = `${this.restaurantsUrl}/${name}`;
+  addItem(selectedItem: CartItem): Promise<void> {
+    const url = `${this.cartUrl}/${name}`;
     return this.http.post(url, {body: selectedItem})
       .toPromise()
       .then(() => null)

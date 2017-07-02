@@ -88,16 +88,19 @@
     ```
     
 ##### User Privilege:
+* Search all restaurants :
+     * GET URL: ```/restaurants```
+     
 * Search restaurant by name :
-    * GET URL: ```/{restaurantName}```
+    * GET URL: ```/restaurants/{restaurantName}```
     
 * Search restaurant by current location with optional customized pagination and distance
     * GET URL: ```/restaurants/near```
     * Sample: ```/near?lat=38.9093216&lng=-76.0036435&page=0&size=10&distance=10```
     
 * Search menu within a range :
-    * GET URL: ```/{restaurantName}/menu```
-    * Sample: ```/{restaurantName}/menu?low=5&high=15```
+    * GET URL: ```/restaurants/{restaurantName}/menu```
+    * Sample: ```/restaurants/{restaurantName}/menu?low=5&high=15```
 
 #### 2. HAL Browser
 * User can inspect supported REST APIs from Hal Browser

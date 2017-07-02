@@ -82,4 +82,9 @@ public class MenuServiceImpl implements MenuService {
             return true;
         } else return false;
     }
+
+    @Override
+    public Page<Restaurant> findAll(String page, String size) {
+        return this.restaurantRepository.findAll(new PageRequest(Integer.parseInt(page), Integer.parseInt(size)));
+    }
 }
