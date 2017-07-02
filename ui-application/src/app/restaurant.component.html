@@ -11,21 +11,13 @@
         (click)="onSelect(restaurant)">
       <span class="badge">{{restaurant.id}}</span>
       <span>{{restaurant.name}}</span>
-      <button class="delete"
-              (click)="delete(restaurant); $event.stopPropagation()">x</button>
     </li>
   </ul>
   <div *ngIf="selectedRestaurant">
     <h2>
       {{selectedRestaurant.name | uppercase}} is my restaurant
     </h2>
-    <button (click)="gotoDetail()">View Details</button>
-  </div>
-  <div>
-    <label>Restaurant name:</label> <input #restaurantName />
-    <button (click)="add(restaurantName.value); restaurantName.value=''">
-      Add
-    </button>
+    <button (click)="gotoDetail()">View Menu</button>
   </div>
 <body>
 

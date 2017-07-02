@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-// import { DashboardComponent }   from './dashboard.component';
 var restaurants_component_1 = require("./restaurants.component");
 var restaurant_detail_component_1 = require("./restaurant-detail.component");
+var cart_component_1 = require("./cart.component");
 var routes = [
     // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: '', redirectTo: '/restaurants', pathMatch: 'full' },
-    // { path: 'dashboard',  component: DashboardComponent },
+    { path: 'cart', component: cart_component_1.CartComponent },
     { path: 'detail/:id', component: restaurant_detail_component_1.RestaurantDetailComponent },
     { path: 'restaurants', component: restaurants_component_1.RestaurantComponent }
 ];

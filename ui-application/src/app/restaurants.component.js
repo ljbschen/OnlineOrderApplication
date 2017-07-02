@@ -31,29 +31,6 @@ var RestaurantComponent = (function () {
     RestaurantComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedRestaurant.id]);
     };
-    RestaurantComponent.prototype.add = function (name) {
-        var _this = this;
-        name = name.trim();
-        if (!name) {
-            return;
-        }
-        this.restaurantService.create(name)
-            .then(function (restaurant) {
-            _this.restaurants.push(restaurant);
-            _this.selectedRestaurant = null;
-        });
-    };
-    RestaurantComponent.prototype.delete = function (restaurant) {
-        var _this = this;
-        this.restaurantService
-            .delete(restaurant.id)
-            .then(function () {
-            _this.restaurants = _this.restaurants.filter(function (h) { return h !== restaurant; });
-            if (_this.selectedRestaurant === restaurant) {
-                _this.selectedRestaurant = null;
-            }
-        });
-    };
     return RestaurantComponent;
 }());
 RestaurantComponent = __decorate([

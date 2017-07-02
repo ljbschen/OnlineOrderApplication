@@ -15,9 +15,10 @@ var restaurant_detail_component_1 = require("./restaurant-detail.component");
 var app_component_1 = require("./app.component");
 var restaurants_component_1 = require("./restaurants.component");
 var restaurant_service_1 = require("./restaurant.service");
-var dashboard_component_1 = require("./dashboard.component");
 var app_routing_module_1 = require("./app-routing.module");
 var restaurant_search_component_1 = require("./restaurant-search.component");
+var cart_component_1 = require("./cart.component");
+var cart_service_1 = require("./cart.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -34,13 +35,14 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            dashboard_component_1.DashboardComponent,
             restaurant_detail_component_1.RestaurantDetailComponent,
             restaurants_component_1.RestaurantComponent,
-            restaurant_search_component_1.RestaurantSearchComponent
+            restaurant_search_component_1.RestaurantSearchComponent,
+            cart_component_1.CartComponent
         ],
         providers: [
-            restaurant_service_1.RestaurantService
+            restaurant_service_1.RestaurantService,
+            cart_service_1.CartService
         ],
         bootstrap: [app_component_1.AppComponent]
     })

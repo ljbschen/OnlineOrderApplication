@@ -34,25 +34,6 @@ export class RestaurantComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedRestaurant.id]);
   }
-
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.restaurantService.create(name)
-      .then(restaurant => {
-        this.restaurants.push(restaurant);
-        this.selectedRestaurant = null;
-      });
-  }
-
-  delete(restaurant: Restaurant): void {
-    this.restaurantService
-      .delete(restaurant.id)
-      .then(() => {
-        this.restaurants = this.restaurants.filter(h => h !== restaurant);
-        if (this.selectedRestaurant === restaurant) { this.selectedRestaurant = null; }
-      });
-  }
 }
 
 

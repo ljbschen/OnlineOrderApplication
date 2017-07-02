@@ -10,10 +10,10 @@ import { AppComponent } from "./app.component";
 import { RestaurantComponent } from "./restaurants.component";
 import { RestaurantService } from "./restaurant.service";
 
-import {DashboardComponent} from "./dashboard.component";
-
 import { AppRoutingModule }     from './app-routing.module';
 import { RestaurantSearchComponent } from './restaurant-search.component';
+import { CartComponent } from './cart.component';
+import { CartService } from './cart.service';
 
 @NgModule({
   imports:      [
@@ -25,13 +25,14 @@ import { RestaurantSearchComponent } from './restaurant-search.component';
   ],
   declarations: [
     AppComponent,
-    DashboardComponent,
     RestaurantDetailComponent,
     RestaurantComponent,
-    RestaurantSearchComponent
+    RestaurantSearchComponent,
+    CartComponent
   ],
   providers:    [
-    RestaurantService
+    RestaurantService,
+    CartService
   ],
   bootstrap:    [ AppComponent ]
 })

@@ -31,23 +31,6 @@ export class RestaurantService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  update(restaurant: Restaurant): Promise<Restaurant> {
-    const url = `${this.restaurantsUrl}/${restaurant.id}`;
-    return this.http
-      .put(url, JSON.stringify(restaurant), {headers: this.headers})
-      .toPromise()
-      .then(() => restaurant)
-      .catch(this.handleError);
-  }
-
-  create(name: string): Promise<Restaurant> {
-    return this.http
-      .post(this.restaurantsUrl, JSON.stringify({name: name}), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as Restaurant)
-      .catch(this.handleError);
-  }
-
   delete(id: number): Promise<void> {
     const url = `${this.restaurantsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
