@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
+var cartItem_1 = require("./cartItem");
+var cartEvent_1 = require("./cartEvent");
 var CartService = (function () {
     function CartService(http) {
         this.http = http;
-        this.cartUrl = 'localhost:8080/cart-service/cart/1'; // URL to web api
+        this.cartUrl = 'http://localhost:8080/cart-service/cart'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     CartService.prototype.getItems = function () {
@@ -51,10 +53,17 @@ var CartService = (function () {
             .catch(this.handleError);
     };
     CartService.prototype.addItem = function (selectedItem) {
-        var url = this.cartUrl + "/" + name;
-        return this.http.post(url, { body: selectedItem })
+        var url = this.cartUrl + "/1/events";
+        console.log(url);
+        var data = new cartEvent_1.CartEvent;
+        data.cartEventType = 'ADD_ITEM';
+        data.item = new cartItem_1.CartItem;
+        data.item.restaurantName = selectedItem.itemRestaurantName;
+        data.item.name = selectedItem.itemName;
+        data.item.price = selectedItem.itemPrice;
+        return this.http.post(url, JSON.stringify(data), { headers: this.headers })
             .toPromise()
-            .then(function () { return null; })
+            .then(function (result) { return result.status; })
             .catch(this.handleError);
     };
     return CartService;

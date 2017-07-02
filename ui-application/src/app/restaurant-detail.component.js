@@ -27,7 +27,6 @@ var RestaurantDetailComponent = (function () {
         this.route.paramMap
             .switchMap(function (params) { return _this.restaurantService.getRestaurant(params.get("restaurantName")); })
             .subscribe(function (result) {
-            console.log(result);
             _this.restaurant = result;
             _this.items = _this.restaurant.menu;
         });
@@ -35,16 +34,21 @@ var RestaurantDetailComponent = (function () {
     RestaurantDetailComponent.prototype.goBack = function () {
         this.location.back();
     };
-    RestaurantDetailComponent.prototype.save = function () {
-        var _this = this;
-        this.cartService.addItem(this.selectedItem)
-            .then(function () { return _this.goBack(); });
-    };
     RestaurantDetailComponent.prototype.onSelect = function (item) {
         this.selectedItem = item;
     };
     RestaurantDetailComponent.prototype.add = function () {
-        window.alert("add " + this.selectedItem.itemName + " successfully");
+        // post request to cart service
+        if (this.selectedItem != null) {
+            var item = this.selectedItem;
+            item.itemRestaurantName = this.restaurant.restaurantName;
+            var status_1 = this.cartService.addItem(item);
+            console.log(status_1);
+            window.alert("add " + this.selectedItem.itemName + " successfully");
+        }
+        else {
+            window.alert("Please select an item first");
+        }
     };
     return RestaurantDetailComponent;
 }());

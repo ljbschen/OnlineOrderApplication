@@ -3,10 +3,11 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { CartItem } from './cartItem';
 import { Item } from './item';
+import {CartEvent} from "./cartEvent";
 
 @Injectable()
 export class CartService {
-  private cartUrl = 'localhost:8080/cart-service/cart/1';  // URL to web api
+  private cartUrl = 'http://localhost:8080/cart-service/cart';  // URL to web api
 
   constructor(private http: Http) { }
 
@@ -49,11 +50,18 @@ export class CartService {
       .catch(this.handleError);
   }
 
-  addItem(selectedItem: Item): Promise<void> {
-    const url = `${this.cartUrl}/${name}`;
-    return this.http.post(url, {body: selectedItem})
+  addItem(selectedItem: Item): Promise<number> {
+    const url = `${this.cartUrl}/1/events`;
+    console.log(url);
+    let data = new CartEvent;
+    data.cartEventType = 'ADD_ITEM';
+    data.item = new CartItem;
+    data.item.restaurantName = selectedItem.itemRestaurantName;
+    data.item.name = selectedItem.itemName;
+    data.item.price = selectedItem.itemPrice;
+    return this.http.post(url, JSON.stringify(data), {headers: this.headers})
       .toPromise()
-      .then(() => null)
+      .then(result => result.status as number)
       .catch(this.handleError);
   }
 

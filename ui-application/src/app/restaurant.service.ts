@@ -5,7 +5,8 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestaurantService {
-  private restaurantsUrl = 'http://localhost:8080/menu-service/restaurants';  // URL to web api
+  private restaurantsUrl = 'http://localhost:8080/menu-service/restaurants';  // URL to menu service api
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
@@ -28,8 +29,6 @@ export class RestaurantService {
       .then(response => response.json() as Restaurant)
       .catch(this.handleError);
   }
-
-  private headers = new Headers({'Content-Type': 'application/json'});
 
   delete(id: number): Promise<void> {
     const url = `${this.restaurantsUrl}/${id}`;

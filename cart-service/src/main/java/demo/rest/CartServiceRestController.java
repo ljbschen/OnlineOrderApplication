@@ -20,19 +20,19 @@ public class CartServiceRestController {
         this.cartService = cartService;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/cart/{userId}/events", method = RequestMethod.POST)
-    public ResponseEntity addEvent(@PathVariable String userId, @RequestBody CartEvent event) {
-        boolean result = this.cartService.addEvent(event, userId);
-        if (result) return new ResponseEntity(HttpStatus.CREATED);
-        else return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+    public boolean addEvent(@PathVariable String userId, @RequestBody CartEvent event) {
+        return this.cartService.addEvent(event, userId);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/cart/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<Cart> getCart(@PathVariable String userId) {
-        Cart cart = this.cartService.getCart(userId);
-        return new ResponseEntity<>(cart, HttpStatus.OK);
+    public Cart getCart(@PathVariable String userId) {
+        return this.cartService.getCart(userId);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/cart/{userId}/checkout", method = RequestMethod.POST)
     public ResponseEntity<URI> checkout(@PathVariable String userId, @RequestBody OrderNote orderNote) {
         // return payment html

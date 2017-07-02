@@ -14,7 +14,7 @@ require("rxjs/add/operator/toPromise");
 var RestaurantService = (function () {
     function RestaurantService(http) {
         this.http = http;
-        this.restaurantsUrl = 'http://localhost:8080/menu-service/restaurants'; // URL to web api
+        this.restaurantsUrl = 'http://localhost:8080/menu-service/restaurants'; // URL to menu service api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     RestaurantService.prototype.getRestaurants = function () {

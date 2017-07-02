@@ -41,6 +41,7 @@ public class CartServiceImpl implements CartService {
         return cart;
     }
 
+    @Override
     public Cart getCart(String userId) {
         return aggregation(userId);
     }
@@ -48,6 +49,7 @@ public class CartServiceImpl implements CartService {
     /*
     Send the order to order-service and returns the page for payment information
      */
+    @Override
     public URI checkout(String userId, OrderNote orderNote) {
         Cart cart = aggregation(userId);
         System.out.println(cart);

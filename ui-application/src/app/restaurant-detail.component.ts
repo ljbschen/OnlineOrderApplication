@@ -30,7 +30,6 @@ export class RestaurantDetailComponent implements OnInit{
     this.route.paramMap
       .switchMap((params: ParamMap) => this.restaurantService.getRestaurant(params.get("restaurantName")))
       .subscribe(result => {
-        console.log(result);
         this.restaurant = result;
         this.items = this.restaurant.menu;
       });
@@ -40,16 +39,20 @@ export class RestaurantDetailComponent implements OnInit{
     this.location.back();
   }
 
-  save(): void {
-    this.cartService.addItem(this.selectedItem)
-      .then(() => this.goBack());
-  }
-
   onSelect(item: Item): void {
     this.selectedItem = item;
   }
 
   add(): void {
-    window.alert("add " + this.selectedItem.itemName + " successfully");
+    // post request to cart service
+    if (this.selectedItem != null) {
+      let item = this.selectedItem;
+      item.itemRestaurantName = this.restaurant.restaurantName;
+      let status = this.cartService.addItem(item);
+      console.log(status);
+      window.alert("add " + this.selectedItem.itemName + " successfully");
+    } else {
+      window.alert("Please select an item first");
+    }
   }
 }
