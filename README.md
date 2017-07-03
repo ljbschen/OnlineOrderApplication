@@ -20,7 +20,12 @@ java -jar target/edge-service-1.0.0.jar
 4. Payment-service
 5. Process-service
 
-#### Then Start MongoDB databases
+#### Then Start MongoDB and RabbitMQ
 ```aidl
 docker-compose up
+```
+#### Open up the UI
+```aidl
+cd ui-application
+npm start
 ```

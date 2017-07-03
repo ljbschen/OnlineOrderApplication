@@ -2,3 +2,8 @@ mongodb:
   image: mongo:3.4.4
   ports:
     - "27017:27017"
+
+rabbitMQ:
+  image: bitnami/rabbitmq:latest
+  ports:
+    - "15672:15672"
