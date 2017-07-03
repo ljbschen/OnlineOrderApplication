@@ -13,6 +13,13 @@ mvn clean install
 java -jar target/edge-service-1.0.0.jar
 ```
 
+#### Start platform inluding Eureka and Hystrix
+```aidl
+cd platform
+```
+1. eureka
+2. hystrix
+
 #### Then start microservices
 1. Menu-service
 2. Order-service
