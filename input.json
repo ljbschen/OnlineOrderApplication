@@ -1,0 +1,49 @@
+{
+  "admin": true,
+  "restaurants": [
+    {
+      "latitude": 38.9093216,
+      "longitude": -76.0036435,
+      "restaurantName": "oyo",
+      "restaurantAddress": "11111",
+      "restaurantCity": "san jose",
+      "restaurantCuisine": "chinese",
+      "menu": [
+        {
+          "itemName": "first",
+          "itemDescription": "504 CS Street, Mountain View, CA 88888",
+          "itemPrice": 12.99,
+          "itemType": "ENTREES"
+        },
+        {
+          "itemName": "second",
+          "itemDescription": "504 CS Street, Mountain View, CA 88888",
+          "itemPrice": 2.99,
+          "itemType": "APPETIZERS"
+        }
+      ]
+    },
+    {
+      "latitude": 38.8093216,
+      "longitude": -75.0036435,
+      "restaurantName": "hola",
+      "restaurantAddress": "2222",
+      "restaurantCity": "san jose",
+      "restaurantCuisine": "chinese",
+      "menu": [
+        {
+          "itemName": "first",
+          "itemDescription": "good",
+          "itemPrice": 12.99,
+          "itemType": "ENTREES"
+        },
+        {
+          "itemName": "second",
+          "itemDescription": "oh..no",
+          "itemPrice": 2.99,
+          "itemType": "APPETIZERS"
+        }
+      ]
+    }
+  ]
+}
