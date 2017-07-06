@@ -12,9 +12,9 @@ export class CartService {
   constructor(private http: Http) { }
 
   getItems(): Promise<CartItem[]> {
-    return this.http.get(this.cartUrl)
+    return this.http.get(`${this.cartUrl}/1`)
       .toPromise()
-      .then(response => response.json().data as CartItem[])
+      .then(response => response.json() as CartItem[])
       .catch(this.handleError);
   }
 
@@ -43,11 +43,7 @@ export class CartService {
   // }
 
   delete(name: string): Promise<void> {
-    const url = `${this.cartUrl}/${name}`;
-    return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+    return null;
   }
 
   addItem(selectedItem: Item): Promise<number> {
@@ -55,13 +51,21 @@ export class CartService {
     console.log(url);
     let data = new CartEvent;
     data.cartEventType = 'ADD_ITEM';
-    data.item = new CartItem;
-    data.item.restaurantName = selectedItem.itemRestaurantName;
-    data.item.name = selectedItem.itemName;
-    data.item.price = selectedItem.itemPrice;
-    return this.http.post(url, JSON.stringify(data), {headers: this.headers})
+    // data.item = new CartItem;
+    // data.item.itemRestaurantName = selectedItem.itemRestaurantName;
+    // data.item.itemName = selectedItem.itemName;
+    // data.item.itemPrice = selectedItem.itemPrice;
+    console.info(JSON.stringify(data));
+    // return this.http.get(url)
+    //   .toPromise()
+    //   .then(response => {
+    //     // response.json().data as CartItem[];
+    //     console.info(response.status.toString());
+    //   })
+    //   .catch(this.handleError);
+    return this.http.post(url, data)
       .toPromise()
-      .then(result => result.status as number)
+      .then(response => response.status as number)
       .catch(this.handleError);
   }
 

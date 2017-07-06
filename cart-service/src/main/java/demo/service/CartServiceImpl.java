@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,8 +44,15 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart getCart(String userId) {
-        return aggregation(userId);
+    public List<CartItem> getCart(String userId) {
+        Cart cart = aggregation(userId);
+        List<CartItem> items = new ArrayList<>();
+        for (CartItem item : cart.getItemMap().keySet()) {
+            item.setItemQuantity(cart.getItemMap().get(item));
+            items.add(item);
+        }
+
+        return items;
     }
 
     /*
@@ -83,11 +92,13 @@ public class CartServiceImpl implements CartService {
     @Override
     public boolean addEvent(CartEvent cartEvent, String userId) {
         boolean result = false;
+        if (cartEvent.getItem() == null || cartEvent.getCartEventType() == null) return false;
         try {
             if (cartEvent.getCartEventType() == CartEventType.CLEAR) {
                 cartEventRepository.deleteCartEventsByUserId(userId);
             } else {
                 cartEvent.setUserId(userId);
+                cartEvent.setDate(new Date());
                 cartEventRepository.save(cartEvent);
             }
             result = true;

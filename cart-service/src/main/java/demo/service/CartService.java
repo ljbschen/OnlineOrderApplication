@@ -1,13 +1,14 @@
 package demo.service;
 
-import demo.domain.Cart;
 import demo.domain.CartEvent;
+import demo.domain.CartItem;
 import demo.domain.OrderNote;
 
 import java.net.URI;
+import java.util.List;
 
 public interface CartService {
-    Cart getCart(String userId);
+    List<CartItem> getCart(String userId);
 
     URI checkout(String userId, OrderNote orderNote);
 

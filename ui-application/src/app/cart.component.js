@@ -21,21 +21,24 @@ var CartComponent = (function () {
     CartComponent.prototype.getItems = function () {
         var _this = this;
         this.cartService.getItems()
-            .then(function (items) { return _this.items = items; });
+            .then(function (items) {
+            _this.items = items;
+        });
     };
     CartComponent.prototype.ngOnInit = function () {
         this.getItems();
     };
     CartComponent.prototype.delete = function (item) {
         var _this = this;
-        this.cartService
-            .delete(item.name)
+        this.cartService.delete(item.itemName)
             .then(function () {
             _this.items = _this.items.filter(function (h) { return h !== item; });
             if (_this.selectedItem === item) {
                 _this.selectedItem = null;
             }
         });
+    };
+    CartComponent.prototype.CheckOut = function () {
     };
     return CartComponent;
 }());

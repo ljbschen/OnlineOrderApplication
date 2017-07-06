@@ -3,16 +3,18 @@
 <head>
 </head>
 <body>
-  <h3>Top Restaurants</h3>
-  <div class="grid grid-pad">
+  <h3>My Cart</h3>
     <ul class="items">
       <li *ngFor="let item of items"
           [class.selected]="item === selectedItem"
           (click)="onSelect(item)">
-        <span class="badge">{{item.price}}</span>
-        <span>{{item.name}}</span>
+        <span class="badge">{{item.itemQuantity}}</span>
+        <span>{{item.itemName}}</span>
+        <span>{{item.itemRestaurantName}}</span>
+        <button class="delete"
+                (click)="delete(item); $event.stopPropagation()">x</button>
       </li>
     </ul>
-  </div>
+  <button (click)="CheckOut()">CheckOut</button>
 </body>
 </html>

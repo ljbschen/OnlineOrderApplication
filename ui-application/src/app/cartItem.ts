@@ -1,7 +1,7 @@
 export class CartItem {
-  name: string;
-  price: number;
-  tax: number;
-  restaurantName: string;
-  quantity: number;
+  itemName: string;
+  itemPrice: number;
+  double: number;
+  itemRestaurantName: string;
+  itemQuantity: number;
 }

@@ -21,4 +21,14 @@ public class CartEvent {
     private CartItem item;
 
     private Date date;
+
+    @Override
+    public String toString() {
+        return "{" +
+                "userId : " + userId +
+                "item : {" +
+                    item.toString()
+                    + "}" +
+                "}";
+    }
 }

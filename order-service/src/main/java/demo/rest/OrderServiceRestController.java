@@ -17,6 +17,7 @@ public class OrderServiceRestController {
         this.orderService = orderService;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public ResponseEntity createOrder(@RequestBody Order order) {
         boolean result = orderService.createOrder(order);
@@ -24,12 +25,14 @@ public class OrderServiceRestController {
         else return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/orders/{orderId}", method = RequestMethod.GET)
     public ResponseEntity<Order> getOrder(@PathVariable String orderId) {
         Order order = orderService.getOrder(orderId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/orders/events", method = RequestMethod.POST)
     public ResponseEntity addOrderEvent(@RequestBody OrderEvent orderEvent) {
         boolean result = orderService.addOrderEvent(orderEvent);

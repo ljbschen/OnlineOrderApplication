@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
-var cartItem_1 = require("./cartItem");
 var cartEvent_1 = require("./cartEvent");
 var CartService = (function () {
     function CartService(http) {
@@ -20,9 +19,9 @@ var CartService = (function () {
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     CartService.prototype.getItems = function () {
-        return this.http.get(this.cartUrl)
+        return this.http.get(this.cartUrl + "/1")
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     CartService.prototype.handleError = function (error) {
@@ -46,24 +45,28 @@ var CartService = (function () {
     //     .catch(this.handleError);
     // }
     CartService.prototype.delete = function (name) {
-        var url = this.cartUrl + "/" + name;
-        return this.http.delete(url, { headers: this.headers })
-            .toPromise()
-            .then(function () { return null; })
-            .catch(this.handleError);
+        return null;
     };
     CartService.prototype.addItem = function (selectedItem) {
         var url = this.cartUrl + "/1/events";
         console.log(url);
         var data = new cartEvent_1.CartEvent;
         data.cartEventType = 'ADD_ITEM';
-        data.item = new cartItem_1.CartItem;
-        data.item.restaurantName = selectedItem.itemRestaurantName;
-        data.item.name = selectedItem.itemName;
-        data.item.price = selectedItem.itemPrice;
-        return this.http.post(url, JSON.stringify(data), { headers: this.headers })
+        // data.item = new CartItem;
+        // data.item.itemRestaurantName = selectedItem.itemRestaurantName;
+        // data.item.itemName = selectedItem.itemName;
+        // data.item.itemPrice = selectedItem.itemPrice;
+        console.info(JSON.stringify(data));
+        // return this.http.get(url)
+        //   .toPromise()
+        //   .then(response => {
+        //     // response.json().data as CartItem[];
+        //     console.info(response.status.toString());
+        //   })
+        //   .catch(this.handleError);
+        return this.http.post(url, data)
             .toPromise()
-            .then(function (result) { return result.status; })
+            .then(function (response) { return response.status; })
             .catch(this.handleError);
     };
     return CartService;

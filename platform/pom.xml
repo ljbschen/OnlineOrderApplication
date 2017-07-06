@@ -14,7 +14,7 @@
     <name>online-order-service/platform</name>
 
     <modules>
-        <module>eureka</module>
+        <!--<module>eureka</module>-->
         <module>hystrix-dashboard</module>
     </modules>
 

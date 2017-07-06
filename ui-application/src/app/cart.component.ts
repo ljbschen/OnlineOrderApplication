@@ -21,7 +21,9 @@ export class CartComponent implements OnInit {
 
   getItems(): void {
     this.cartService.getItems()
-      .then(items => this.items = items);
+      .then(items => {
+        this.items = items;
+      });
   }
 
   ngOnInit(): void {
@@ -29,12 +31,15 @@ export class CartComponent implements OnInit {
   }
 
   delete(item: CartItem): void {
-    this.cartService
-      .delete(item.name)
+    this.cartService.delete(item.itemName)
       .then(() => {
         this.items = this.items.filter(h => h !== item);
         if (this.selectedItem === item) { this.selectedItem = null; }
       });
+  }
+
+  CheckOut() : void {
+
   }
 
 }
