@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class MenuServiceRestController {
     private static final String DEFAULT_PAGE = "0";
@@ -57,7 +58,6 @@ public class MenuServiceRestController {
     }
 
     // user
-    @CrossOrigin
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
     public Page<Restaurant> findAll(
             @RequestParam(name = "page", defaultValue = DEFAULT_PAGE) String page,
@@ -66,7 +66,6 @@ public class MenuServiceRestController {
     }
 
     // user
-    @CrossOrigin
     @RequestMapping(value = "/restaurants/near", method = RequestMethod.GET)
     public Page<Restaurant> findRestaurantWithIn(
             @RequestParam(name = "lat") String lat,
@@ -78,14 +77,12 @@ public class MenuServiceRestController {
     }
 
     // user
-    @CrossOrigin
     @RequestMapping(value = "/restaurants/{restaurantName}", method = RequestMethod.GET)
     public Restaurant findByRestaurantName(@PathVariable("restaurantName") String restaurantName) {
         return this.menuService.findByRestaurantName(restaurantName);
     }
 
     // user
-    @CrossOrigin
     @RequestMapping(value = "/restaurants/{restaurantName}/menu", method = RequestMethod.GET)
     public List<MenuItem> findByItemPriceBetween(@PathVariable("restaurantName") String restaurantName,
                                                  @RequestParam(name = "low", defaultValue = DEFAULT_LOW) String low,

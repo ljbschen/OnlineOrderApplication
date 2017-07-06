@@ -13,6 +13,7 @@ public class Invoice {
     private String id;
     private String paymentId;
     private String orderId;
+    private Data deliverDate;
 
     public Invoice(Payment payment) {
         this.paymentId = payment.getId();

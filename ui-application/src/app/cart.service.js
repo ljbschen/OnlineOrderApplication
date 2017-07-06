@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
+var cartItem_1 = require("./cartItem");
 var cartEvent_1 = require("./cartEvent");
+var order_1 = require("./order");
 var CartService = (function () {
     function CartService(http) {
         this.http = http;
-        this.cartUrl = 'http://localhost:8080/cart-service/cart'; // URL to web api
+        this.cartUrl = 'http://localhost:9003/cart'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     CartService.prototype.getItems = function () {
@@ -28,45 +30,31 @@ var CartService = (function () {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     };
-    // update(restaurant: Restaurant): Promise<Restaurant> {
-    //   const url = `${this.restaurantsUrl}/${restaurant.id}`;
-    //   return this.http
-    //     .put(url, JSON.stringify(restaurant), {headers: this.headers})
-    //     .toPromise()
-    //     .then(() => restaurant)
-    //     .catch(this.handleError);
-    // }
-    //
-    // create(name: string): Promise<Restaurant> {
-    //   return this.http
-    //     .post(this.restaurantsUrl, JSON.stringify({name: name}), {headers: this.headers})
-    //     .toPromise()
-    //     .then(res => res.json().data as Restaurant)
-    //     .catch(this.handleError);
-    // }
     CartService.prototype.delete = function (name) {
         return null;
     };
     CartService.prototype.addItem = function (selectedItem) {
         var url = this.cartUrl + "/1/events";
-        console.log(url);
         var data = new cartEvent_1.CartEvent;
         data.cartEventType = 'ADD_ITEM';
-        // data.item = new CartItem;
-        // data.item.itemRestaurantName = selectedItem.itemRestaurantName;
-        // data.item.itemName = selectedItem.itemName;
-        // data.item.itemPrice = selectedItem.itemPrice;
-        console.info(JSON.stringify(data));
-        // return this.http.get(url)
-        //   .toPromise()
-        //   .then(response => {
-        //     // response.json().data as CartItem[];
-        //     console.info(response.status.toString());
-        //   })
-        //   .catch(this.handleError);
-        return this.http.post(url, data)
+        data.item = new cartItem_1.CartItem;
+        data.item.itemRestaurantName = selectedItem.itemRestaurantName;
+        data.item.itemName = selectedItem.itemName;
+        data.item.itemPrice = selectedItem.itemPrice;
+        return this.http.post(url, data, { headers: this.headers })
             .toPromise()
             .then(function (response) { return response.status; })
+            .catch(this.handleError);
+    };
+    CartService.prototype.checkOut = function () {
+        var url = this.cartUrl + "/1/checkout";
+        var order = new order_1.Order;
+        order.shippingAddress = '123 main street';
+        order.orderNote = 'no spicy';
+        console.info(order);
+        return this.http.post(url, order, { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response; })
             .catch(this.handleError);
     };
     return CartService;

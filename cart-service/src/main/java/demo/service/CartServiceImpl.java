@@ -51,7 +51,6 @@ public class CartServiceImpl implements CartService {
             item.setItemQuantity(cart.getItemMap().get(item));
             items.add(item);
         }
-
         return items;
     }
 

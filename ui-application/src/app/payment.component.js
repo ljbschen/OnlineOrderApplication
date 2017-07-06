@@ -11,26 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var cart_service_1 = require("./cart.service");
 var router_1 = require("@angular/router");
-var CartComponent = (function () {
+var PaymentComponent = (function () {
     // injection
-    function CartComponent(cartService, router) {
+    function PaymentComponent(cartService, router) {
         this.cartService = cartService;
         this.router = router;
     }
-    CartComponent.prototype.ngOnInit = function () {
+    PaymentComponent.prototype.ngOnInit = function () {
         this.getItems();
     };
-    CartComponent.prototype.onSelect = function (item) {
+    PaymentComponent.prototype.onSelect = function (item) {
         this.selectedItem = item;
     };
-    CartComponent.prototype.getItems = function () {
+    PaymentComponent.prototype.getItems = function () {
         var _this = this;
         this.cartService.getItems()
             .then(function (items) {
             _this.items = items;
         });
     };
-    CartComponent.prototype.delete = function (item) {
+    PaymentComponent.prototype.delete = function (item) {
         var _this = this;
         this.cartService.delete(item.itemName)
             .then(function () {
@@ -40,13 +40,14 @@ var CartComponent = (function () {
             }
         });
     };
-    CartComponent.prototype.checkOut = function () {
+    PaymentComponent.prototype.checkOut = function () {
         var _this = this;
         this.cartService.checkOut()
             .then(function (result) {
             console.info(result);
             if (result.status == 202) {
                 alert("order placed successfully");
+                _this.router.navigate(result.body);
             }
             else {
                 alert("order declined");
@@ -54,15 +55,15 @@ var CartComponent = (function () {
             }
         });
     };
-    return CartComponent;
+    return PaymentComponent;
 }());
-CartComponent = __decorate([
+PaymentComponent = __decorate([
     core_1.Component({
-        selector: 'my-cart',
-        templateUrl: './cart.component.html',
-        styleUrls: ['./cart.component.css']
+        selector: 'my-payment',
+        templateUrl: './payment.component.html',
+        styleUrls: ['./payment.component.css']
     }),
     __metadata("design:paramtypes", [cart_service_1.CartService, router_1.Router])
-], CartComponent);
-exports.CartComponent = CartComponent;
-//# sourceMappingURL=cart.component.js.map
+], PaymentComponent);
+exports.PaymentComponent = PaymentComponent;
+//# sourceMappingURL=payment.component.js.map

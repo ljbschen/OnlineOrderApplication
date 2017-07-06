@@ -4,14 +4,13 @@ import { CartItem } from './cartItem';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'my-cart',
-  templateUrl: './cart.component.html',
-  styleUrls: [ './cart.component.css' ]
+  selector: 'my-payment',
+  templateUrl: './payment.component.html',
+  styleUrls: [ './payment.component.css' ]
 })
 
-export class CartComponent implements OnInit {
-  items: CartItem[];
-  selectedItem: CartItem;
+export class PaymentComponent implements OnInit {
+  card: Card;
 
   // injection
   constructor(private cartService: CartService, private router: Router) { }
@@ -45,7 +44,7 @@ export class CartComponent implements OnInit {
         console.info(result);
         if (result.status == 202) {
           alert("order placed successfully");
-          // this.router.navigate();
+          this.router.navigate(result.body);
         } else {
           alert("order declined");
           this.router.navigate(['/restaurants']);
