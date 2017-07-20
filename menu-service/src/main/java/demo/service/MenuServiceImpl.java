@@ -1,9 +1,11 @@
 package demo.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import demo.domain.MenuItem;
 import demo.domain.Request;
 import demo.domain.Restaurant;
 import demo.domain.RestaurantRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,18 +20,24 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService {
     private RestaurantRepository restaurantRepository;
+    private final static Logger LOGGER = Logger.getLogger(MenuServiceImpl.class);
 
     @Autowired
     public MenuServiceImpl (RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
 
+    @HystrixCommand(fallbackMethod = "processDeleteAllFallback")
     @Override
     public boolean deleteAll(Request request) {
         if (request.isAdmin()) {
             this.restaurantRepository.deleteAll();
             return true;
         } else return false;
+    }
+
+    public void processDeleteAllFallback(Throwable e) {
+        LOGGER.info("Error while deleting all, Exception:" + e.getMessage());
     }
 
     @Override
